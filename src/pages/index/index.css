@@ -1,1 +1,70 @@
-/* 优先使用 tailwindcss，如无必要请不要使用css */
+.home-header {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  padding: 48px 24px 28px;
+  border-radius: 0 0 24px 24px;
+}
+
+.home-stats {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.stat-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.today-card {
+  margin: 0 20px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid #FF6B6B;
+  position: relative;
+  overflow: hidden;
+}
+
+.today-btn {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  border-radius: 24px;
+  padding: 10px 24px;
+  display: inline-block;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 0 20px 20px;
+}
+
+.cat-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+}
+
+.unlock-banner {
+  margin: 0 20px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.unlock-price-tag {
+  background: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}

@@ -1,0 +1,55 @@
+.profile-header {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  padding: 48px 24px 28px;
+  text-align: center;
+  border-radius: 0 0 24px 24px;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.profile-tag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 12px;
+  border-radius: 12px;
+  margin-top: 6px;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 1px;
+  margin: -12px 20px 16px;
+  background: #e5e5ea;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.profile-stat {
+  flex: 1;
+  background: #fff;
+  text-align: center;
+  padding: 16px 8px;
+}
+
+.profile-menu {
+  padding: 0 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+}
