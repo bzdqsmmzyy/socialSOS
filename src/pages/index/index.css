@@ -7,30 +7,34 @@
 /* ===== Header ===== */
 .h-header {
   background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
-  padding: 48px 20px 20px;
+  padding: 50px 20px 24px;
+  border-radius: 0 0 24px 24px;
+  margin-bottom: 0;
 }
 
 .h-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .h-title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: #fff;
+  letter-spacing: 0.5px;
 }
 
 .h-avatar {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .h-stats {
@@ -40,18 +44,30 @@
 
 .h-stat {
   flex: 1;
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 12px;
-  padding: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 10px 8px;
   text-align: center;
   backdrop-filter: blur(10px);
+}
+
+.h-stat .stat-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.h-stat .stat-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 2px;
 }
 
 /* ===== Category Tags ===== */
 .h-tags {
   display: flex;
   gap: 8px;
-  padding: 14px 16px 6px;
+  padding: 16px 16px 8px;
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
@@ -63,114 +79,124 @@
 
 .h-tag {
   flex-shrink: 0;
-  padding: 7px 16px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 8px 18px;
+  border-radius: 22px;
+  font-size: 13px;
   font-weight: 500;
   background: #ffffff;
   border: 1.5px solid #e5e5ea;
   transition: all 0.2s;
+  color: #666;
 }
 
 .h-tag-active {
-  background: #FF6B6B;
-  border-color: #FF6B6B;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
 /* ===== Quiz Card ===== */
 .h-card {
-  margin: 8px 16px;
+  margin: 12px 16px;
   background: #ffffff;
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid rgba(255, 107, 107, 0.15);
 }
 
 .h-card-badge {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 14px 16px 0;
+  padding: 16px 18px 0;
   font-size: 11px;
-  color: #999;
+  color: #aaa;
 }
 
 .h-hot-tag {
   background: #FFF0F0;
-  padding: 2px 8px;
-  border-radius: 10px;
+  color: #FF6B6B;
+  padding: 3px 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 12px;
 }
 
 .h-card-scene {
-  padding: 10px 16px 18px;
+  padding: 12px 18px 20px;
   font-size: 16px;
   color: #1a1a1a;
-  line-height: 1.8;
+  line-height: 1.85;
   font-weight: 500;
 }
 
 .h-card-hint {
-  padding: 0 16px 14px;
+  padding: 0 18px 16px;
   font-size: 12px;
-  color: #bbb;
+  color: #ccc;
   text-align: center;
 }
 
 /* Start Button */
 .h-start {
   display: block;
-  margin: 4px 16px 12px;
+  margin: 6px 18px 16px;
   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
   color: #fff;
-  border-radius: 26px;
-  padding: 13px;
-  font-size: 15px;
+  border-radius: 28px;
+  padding: 14px;
+  font-size: 16px;
   font-weight: 600;
   text-align: center;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.35);
 }
 
 /* ===== Options ===== */
 .h-options {
-  padding: 0 16px 16px;
+  padding: 4px 18px 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .h-opt {
-  background: #f8f8fa;
-  border: 2px solid #eee;
-  border-radius: 14px;
-  padding: 14px 16px;
+  background: #FAFAFA;
+  border: 2px solid #F0F0F0;
+  border-radius: 16px;
+  padding: 16px 18px;
   font-size: 14px;
   color: #1a1a1a;
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  line-height: 1.6;
-  transition: all 0.15s;
+  gap: 12px;
+  line-height: 1.65;
+  transition: all 0.2s;
 }
 
 .h-opt-locked {
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.88;
 }
 
 .h-opt-correct {
   border-color: #34C759;
-  background: #F0FFF4;
+  background: linear-gradient(135deg, #F0FFF4, #E8F8EC);
+  box-shadow: 0 2px 12px rgba(52, 199, 89, 0.15);
 }
 
 .h-opt-wrong {
-  border-color: #FF3B30;
-  background: #FFF5F5;
+  border-color: #FF6B6B;
+  background: linear-gradient(135deg, #FFF5F5, #FFEEED);
+  box-shadow: 0 2px 12px rgba(255, 107, 107, 0.15);
 }
 
 .h-letter {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: #f0f0f2;
+  background: #F0F0F2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -178,29 +204,41 @@
   font-size: 12px;
   flex-shrink: 0;
   transition: all 0.2s;
+  color: #999;
 }
 
 .h-letter-correct {
   background: #34C759;
   color: #fff;
+  box-shadow: 0 2px 8px rgba(52, 199, 89, 0.3);
 }
 
 .h-letter-wrong {
-  background: #FF3B30;
+  background: #FF6B6B;
   color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
 }
 
 /* ===== Result Area ===== */
 .h-result {
-  padding: 0 16px 16px;
+  padding: 4px 16px 16px;
 }
 
 .h-result-card {
-  background: #F0FFF4;
-  border: 1.5px solid #34C759;
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 10px;
+  background: linear-gradient(135deg, #F0FFF4, #E8F8EC);
+  border: 1.5px solid rgba(52, 199, 89, 0.3);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 12px rgba(52, 199, 89, 0.08);
+}
+
+.h-result-answer {
+  font-size: 15px;
+  color: #1a1a1a;
+  line-height: 1.75;
+  font-weight: 500;
+  padding: 6px 0;
 }
 
 .h-result-tag {
@@ -208,32 +246,32 @@
   background: #E8F5E9;
   color: #2E7D32;
   font-size: 11px;
-  padding: 3px 10px;
-  border-radius: 10px;
-  margin-top: 10px;
+  padding: 4px 14px;
+  border-radius: 14px;
+  margin-top: 12px;
   font-weight: 500;
 }
 
 .h-tips {
-  background: #FFF9F0;
-  border: 1px solid #FFE0B2;
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 12px;
+  background: linear-gradient(135deg, #FFF9F0, #FFF5E5);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
 }
 
 .h-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .h-btn-copy {
   flex: 1;
   background: #fff;
   color: #FF6B6B;
-  border: 1.5px solid #FF6B6B;
-  border-radius: 24px;
-  padding: 11px;
+  border: 2px solid #FF6B6B;
+  border-radius: 28px;
+  padding: 12px;
   font-size: 13px;
   font-weight: 600;
   text-align: center;
@@ -243,31 +281,39 @@
   flex: 2;
   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
   color: #fff;
-  border-radius: 24px;
-  padding: 11px;
+  border-radius: 28px;
+  padding: 12px;
   font-size: 13px;
   font-weight: 600;
   text-align: center;
+  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
 }
 
 /* ===== Unlock Banner ===== */
 .h-unlock {
-  margin: 8px 16px 12px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 16px;
-  padding: 16px 18px;
+  margin: 12px 16px 16px;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 50%, #FFAA5C 100%);
+  border-radius: 18px;
+  padding: 18px 20px;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 6px 24px rgba(255, 107, 107, 0.25);
 }
 
 .h-unlock-price {
   background: #fff;
-  color: #764ba2;
+  color: #FF6B6B;
   font-weight: 700;
-  font-size: 13px;
-  padding: 5px 14px;
-  border-radius: 18px;
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 20px;
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Bottom Spacing ===== */
+.h-bottom-space {
+  height: 100px;
 }

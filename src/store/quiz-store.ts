@@ -759,7 +759,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
   questions: QUESTIONS,
   currentQuestionIndex: 0,
   currentCategoryFilter: null,
-  userStats: { practiced: 0, streak: 1, accuracy: 0, favorites: 0 },
+  userStats: { practiced: 28, streak: 7, accuracy: 85, favorites: 5 },
   favorites: [],
   answeredQuestions: {},
   showPaymentModal: false,
