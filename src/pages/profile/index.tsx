@@ -1,20 +1,30 @@
 import { View, Text } from "@tarojs/components"
 import { useQuizStore } from "@/store/quiz-store"
-import { Badge } from "@/components/ui/badge"
 import PaymentModal from "@/components/payment-modal"
 import "./index.css"
 
 export default function Profile() {
-  const { userStats, favorites, showPaymentModal, setShowPaymentModal } = useQuizStore()
+  const { userStats, favorites, showPaymentModal, setShowPaymentModal, isPaid } = useQuizStore()
 
   const menuItems = [
-    { icon: "🏆", text: "我的成就", extra: null },
-    { icon: "⭐", text: "收藏题目", extra: favorites.length > 0 ? String(favorites.length) : null },
-    { icon: "📊", text: "学习报告", extra: null },
-    { icon: "👑", text: "升级完整版", extra: "¥19.9", isHighlight: true },
-    { icon: "📝", text: "社恐测评", extra: "NEW", isNew: true },
-    { icon: "💬", text: "意见反馈", extra: null }
+    { icon: "⭐", text: "收藏题目", extra: favorites.length > 0 ? String(favorites.length) : null, needPay: true },
+    { icon: "📊", text: "学习报告", extra: null, needPay: true },
+    { icon: "👑", text: "升级完整版", extra: "¥19.9", isHighlight: true, needPay: false },
+    { icon: "📝", text: "社恐测评", extra: "NEW", isNew: true, needPay: true },
+    { icon: "💬", text: "意见反馈", extra: null, needPay: false }
   ]
+
+  const handleMenuClick = (item: typeof menuItems[0]) => {
+    if (item.isHighlight || item.needPay) {
+      if (!isPaid && item.needPay) {
+        setShowPaymentModal(true)
+        return
+      }
+    }
+    if (item.isHighlight) {
+      setShowPaymentModal(true)
+    }
+  }
 
   return (
     <View className="page-container">
@@ -45,18 +55,30 @@ export default function Profile() {
         </View>
       </View>
 
+      {/* Version Badge */}
+      <View className="version-badge">
+        <Text className="block text-sm font-semibold text-primary">
+          {isPaid ? '👑 完整版用户' : '🆓 免费体验版'}
+        </Text>
+        <Text className="block text-xs text-gray-500 mt-1">
+          {isPaid ? '已解锁全部200+题目' : '每日3题免费体验'}
+        </Text>
+      </View>
+
       {/* Menu */}
       <View className="profile-menu">
         {menuItems.map((item) => (
           <View
             key={item.text}
             className="menu-item"
-            onClick={item.isHighlight ? () => setShowPaymentModal(true) : undefined}
+            onClick={() => handleMenuClick(item)}
           >
             <Text className="block text-xl w-8 text-center">{item.icon}</Text>
             <Text className="block flex-1 text-sm text-gray-900">{item.text}</Text>
             {item.isNew && (
-              <Badge className="bg-red-50 text-primary text-xs mr-1">NEW</Badge>
+              <View className="new-badge">
+                <Text className="block text-xs text-primary font-semibold">NEW</Text>
+              </View>
             )}
             {item.extra && !item.isNew && (
               <Text className={`block text-xs font-semibold ${item.isHighlight ? "text-primary" : ""}`}>
@@ -69,7 +91,7 @@ export default function Profile() {
       </View>
 
       {/* Bottom spacing for TabBar */}
-      <View className="h-24" />
+      <View className="h-20" />
 
       {/* Payment Modal */}
       <PaymentModal open={showPaymentModal} onClose={() => setShowPaymentModal(false)} />

@@ -1,12 +1,7 @@
 export default defineAppConfig({
   pages: [
     'pages/index/index',
-    'pages/category/index',
-    'pages/quiz-list/index',
-    'pages/profile/index',
-    'pages/quiz/index',
-    'pages/result/index',
-    'pages/category-detail/index'
+    'pages/profile/index'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -25,18 +20,6 @@ export default defineAppConfig({
         text: '首页',
         iconPath: './assets/tabbar/house.png',
         selectedIconPath: './assets/tabbar/house-active.png'
-      },
-      {
-        pagePath: 'pages/category/index',
-        text: '分类',
-        iconPath: './assets/tabbar/layout-grid.png',
-        selectedIconPath: './assets/tabbar/layout-grid-active.png'
-      },
-      {
-        pagePath: 'pages/quiz-list/index',
-        text: '题库',
-        iconPath: './assets/tabbar/book-open.png',
-        selectedIconPath: './assets/tabbar/book-open-active.png'
       },
       {
         pagePath: 'pages/profile/index',

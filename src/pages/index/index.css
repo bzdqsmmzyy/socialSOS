@@ -1,6 +1,13 @@
+.page-container {
+  min-height: 100vh;
+  background-color: #F5F5F7;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Header */
 .home-header {
   background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
-  padding: 48px 24px 28px;
+  padding: 48px 20px 20px;
   border-radius: 0 0 24px 24px;
 }
 
@@ -14,57 +21,228 @@
   flex: 1;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 10px 8px;
   text-align: center;
 }
 
-.today-card {
-  margin: 0 20px;
-  background: #fff;
+.stat-card-free {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+/* Tags */
+.tags-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  padding: 12px 16px;
+  gap: 8px;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tags-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tag-item {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.tag-active {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+}
+
+/* Quiz Area */
+.quiz-area {
+  padding: 0 16px;
+}
+
+/* Scene Card */
+.scene-card {
+  background: #ffffff;
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  border: 1.5px solid #FF6B6B;
-  position: relative;
-  overflow: hidden;
 }
 
-.today-btn {
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-  border-radius: 24px;
-  padding: 10px 24px;
-  display: inline-block;
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-  padding: 0 20px 20px;
-}
-
-.cat-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 16px 10px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  border: 1px solid #f0f0f0;
-}
-
-.unlock-banner {
-  margin: 0 20px 20px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 16px;
-  padding: 18px 20px;
+.scene-header {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.scene-tag {
+  background: #FFF0F0;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.hot-tag {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.scene-action {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  border-radius: 24px;
+  padding: 12px 40px;
+}
+
+/* Selecting Card */
+.selecting-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.scene-mini {
+  background: #FFF8F0;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.option-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 14px 12px;
+  background: #F8F8FA;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+}
+
+.option-item:active {
+  border-color: #FF6B6B;
+  background: #FFF0F0;
+}
+
+.option-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFF0F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* Revealed Card */
+.revealed-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.your-answer {
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.answer-correct {
+  background: #34C759;
+}
+
+.answer-wrong {
+  background: #FF3B30;
+}
+
+.best-answer-section {
+  margin-bottom: 12px;
+}
+
+.best-answer-box {
+  background: #FFF8F0;
+  border-left: 3px solid #FF6B6B;
+  border-radius: 0 12px 12px 0;
+  padding: 12px;
+  margin: 8px 0;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #FFF0F0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-top: 8px;
+}
+
+.technique-section {
+  margin-bottom: 12px;
+}
+
+.technique-tag {
+  display: inline-flex;
+  background: #FFF0F0;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.tips-section {
+  background: #F8F8FA;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.revealed-actions {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-.unlock-price-tag {
-  background: #fff;
-  padding: 6px 16px;
+.fav-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  background: #F8F8FA;
   border-radius: 20px;
-  white-space: nowrap;
+}
+
+.next-btn {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  border-radius: 24px;
+  padding: 10px 28px;
+}
+
+/* Unlock Banner */
+.unlock-banner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 16px;
+  background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+}
+
+.unlock-price-tag {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 6px 14px;
+  flex-shrink: 0;
 }
