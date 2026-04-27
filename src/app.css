@@ -154,3 +154,21 @@ image {
   background-color: var(--selection);
   color: var(--selection-foreground);
 }
+
+/* Payment Modal Buttons */
+.pay-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: #fff;
+  border-radius: 26px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pay-close {
+  text-align: center;
+  padding: 14px;
+  font-size: 13px;
+  color: #8e8e93;
+}

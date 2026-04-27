@@ -74,7 +74,7 @@ export interface QuizState {
 }
 
 export const CATEGORIES: Category[] = [
-  { id: 0, name: '全部', emoji: '📋', tag: '全部', count: 0, description: '所有场景' },
+  { id: 0, name: '推荐', emoji: '🔥', tag: '🔥 推荐', count: 0, description: '精选推荐' },
   { id: 1, name: '职场生存', emoji: '🏢', tag: '🏢 职场生存', count: 50, description: '被领导批评、开会发言、同事甩锅…' },
   { id: 2, name: '社交聚会', emoji: '🎉', tag: '🎉 社交聚会', count: 40, description: '聚会插不上话、敬酒、被问隐私…' },
   { id: 3, name: '恋爱沟通', emoji: '💕', tag: '💕 恋爱沟通', count: 30, description: '暗恋开口、表白、吵架处理…' },
@@ -823,7 +823,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     }
   },
   startQuiz: () => {
-    set({ currentQuestionIndex: 0, quizPhase: 'selecting', selectedOption: null })
+    set({ quizPhase: 'selecting', selectedOption: null })
   },
   getFilteredQuestions: () => {
     const state = get()

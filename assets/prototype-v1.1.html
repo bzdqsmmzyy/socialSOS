@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>社交急救包 v1.1</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB',sans-serif;
+    background:#1a1a2e;display:flex;justify-content:center;align-items:center;
+    min-height:100vh;padding:16px;
+  }
+  .phone{
+    width:375px;height:812px;background:#f5f5f7;border-radius:40px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative;border:6px solid #2a2a3e;
+  }
+  .screen{
+    position:absolute;top:0;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;
+    background:#f5f5f7;-webkit-overflow-scrolling:touch;
+  }
+  .screen::-webkit-scrollbar{display:none}
+  .screen.hidden{display:none}
+
+  /* ===== Tab Bar ===== */
+  .tab-bar{
+    position:absolute;bottom:0;left:0;right:0;height:78px;background:#fff;
+    border-top:.5px solid #e5e5ea;display:flex;align-items:flex-start;
+    justify-content:space-around;padding-top:8px;z-index:20;
+  }
+  .tab{
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+    font-size:10px;color:#8e8e93;cursor:pointer;padding:4px 20px;
+    transition:color .2s;
+  }
+  .tab.active{color:#FF6B6B}
+  .tab-icon{font-size:22px}
+
+  /* ===== HOME ===== */
+  .home-scroll{padding-bottom:88px}
+
+  /* Header */
+  .h-header{
+    background:linear-gradient(135deg,#FF6B6B,#FF8E53);
+    padding:16px 20px 20px;color:#fff;
+  }
+  .h-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .h-title{font-size:20px;font-weight:700}
+  .h-avatar{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:16px}
+  .h-stats{display:flex;gap:10px}
+  .h-stat{flex:1;background:rgba(255,255,255,.18);border-radius:12px;padding:8px;text-align:center;backdrop-filter:blur(10px)}
+  .h-stat b{font-size:18px;display:block}
+  .h-stat span{font-size:10px;opacity:.8}
+
+  /* Category Tags */
+  .h-tags{
+    display:flex;gap:8px;padding:14px 16px 6px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .h-tags::-webkit-scrollbar{display:none}
+  .h-tag{
+    white-space:nowrap;padding:7px 16px;border-radius:20px;font-size:12px;
+    font-weight:500;cursor:pointer;transition:all .2s;flex-shrink:0;
+    border:1.5px solid #e5e5ea;background:#fff;color:#666;
+  }
+  .h-tag.active{background:#FF6B6B;color:#fff;border-color:#FF6B6B}
+
+  /* Quiz Card (inline) */
+  .h-card{
+    margin:8px 16px;background:#fff;border-radius:18px;overflow:hidden;
+    box-shadow:0 2px 12px rgba(0,0,0,.05);
+  }
+  .h-card-badge{
+    display:flex;align-items:center;gap:6px;padding:14px 16px 0;font-size:11px;color:#999
+  }
+  .h-card-badge .hot{background:#FFF0F0;color:#FF6B6B;padding:2px 8px;border-radius:10px;font-weight:600}
+
+  .h-card-scene{
+    padding:10px 16px 18px;font-size:16px;color:#1a1a1a;line-height:1.8;font-weight:500;
+  }
+  .h-card-scene strong{color:#FF6B6B}
+
+  .h-card-hint{
+    padding:0 16px 14px;font-size:12px;color:#bbb;text-align:center
+  }
+
+  /* Options */
+  .h-options{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+  .h-opt{
+    background:#f8f8fa;border:2px solid #eee;border-radius:14px;padding:14px 16px;
+    font-size:14px;color:#1a1a1a;cursor:pointer;display:flex;align-items:flex-start;
+    gap:10px;transition:all .15s;line-height:1.6;
+  }
+  .h-opt:active{transform:scale(.98)}
+  .h-opt.locked{pointer-events:none;opacity:.7}
+  .h-letter{
+    width:26px;height:26px;border-radius:50%;background:#f0f0f2;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:600;font-size:12px;flex-shrink:0;transition:all .2s;
+  }
+  .h-opt.wrong{border-color:#FF3B30;background:#FFF5F5}
+  .h-opt.wrong .h-letter{background:#FF3B30;color:#fff}
+  .h-opt.correct{border-color:#34C759;background:#F0FFF4}
+  .h-opt.correct .h-letter{background:#34C759;color:#fff}
+
+  /* Start Button */
+  .h-start{
+    display:block;margin:4px 16px 12px;background:linear-gradient(135deg,#FF6B6B,#FF8E53);
+    color:#fff;border:none;border-radius:26px;padding:13px;font-size:15px;
+    font-weight:600;cursor:pointer;text-align:center;transition:transform .1s;
+  }
+  .h-start:active{transform:scale(.97)}
+  .h-start.hidden{display:none}
+
+  /* Result (inline below quiz) */
+  .h-result{padding:0 16px 16px}
+  .h-result.hidden{display:none}
+  .h-result-card{
+    background:#F0FFF4;border:1.5px solid #34C759;border-radius:14px;padding:16px;margin-bottom:10px;
+  }
+  .h-result-label{font-size:11px;color:#34C759;font-weight:600;margin-bottom:6px}
+  .h-result-text{font-size:14px;color:#1a1a1a;line-height:1.7}
+  .h-result-tag{
+    display:inline-block;background:#E8F5E9;color:#2E7D32;font-size:11px;
+    padding:3px 10px;border-radius:10px;margin-top:10px;font-weight:500;
+  }
+  .h-tips{
+    background:#FFF9F0;border:1px solid #FFE0B2;border-radius:12px;padding:14px;margin-bottom:12px;
+  }
+  .h-tips-title{font-size:11px;color:#F57C00;font-weight:600;margin-bottom:6px}
+  .h-tips-text{font-size:12px;color:#5D4037;line-height:1.7}
+  .h-actions{display:flex;gap:10px}
+  .h-btn-copy{
+    flex:1;background:#fff;color:#FF6B6B;border:1.5px solid #FF6B6B;
+    border-radius:24px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;
+  }
+  .h-btn-next{
+    flex:2;background:linear-gradient(135deg,#FF6B6B,#FF8E53);color:#fff;
+    border:none;border-radius:24px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;
+  }
+
+  /* Unlock Banner */
+  .h-unlock{
+    margin:8px 16px 12px;background:linear-gradient(135deg,#667eea,#764ba2);
+    border-radius:16px;padding:16px 18px;color:#fff;display:flex;align-items:center;
+    justify-content:space-between;cursor:pointer;
+  }
+  .h-unlock h3{font-size:14px;font-weight:600}
+  .h-unlock p{font-size:11px;opacity:.8;margin-top:2px}
+  .h-unlock-price{background:#fff;color:#764ba2;font-weight:700;font-size:13px;padding:5px 14px;border-radius:18px;white-space:nowrap}
+
+  /* ===== PROFILE ===== */
+  .p-header{
+    background:linear-gradient(135deg,#FF6B6B,#FF8E53);padding:28px 20px 20px;
+    text-align:center;color:#fff;
+  }
+  .p-avatar{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:26px;border:2px solid rgba(255,255,255,.3)}
+  .p-name{font-size:17px;font-weight:700}
+  .p-badge{display:inline-block;background:rgba(255,255,255,.2);padding:3px 12px;border-radius:12px;font-size:11px;margin-top:6px}
+  .p-stats{display:flex;gap:1px;margin:-10px 16px 14px;background:#e5e5ea;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+  .p-stat{flex:1;background:#fff;text-align:center;padding:14px 6px}
+  .p-stat b{font-size:18px;color:#FF6B6B;display:block}
+  .p-stat span{font-size:10px;color:#8e8e93}
+  .p-menu{padding:0 16px 88px}
+  .p-item{display:flex;align-items:center;gap:12px;padding:15px;border-bottom:.5px solid #f0f0f0;cursor:pointer}
+  .p-item-icon{font-size:20px;width:28px;text-align:center}
+  .p-item-text{flex:1;font-size:14px;color:#1a1a1a}
+  .p-item-arrow{color:#c7c7cc;font-size:14px}
+  .p-item-badge{background:#FF3B30;color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;font-weight:600}
+  .p-item-new{font-size:10px;color:#FF6B6B;background:#FFF0F0;padding:2px 8px;border-radius:8px}
+  .p-item-price{font-size:12px;color:#FF6B6B;font-weight:600}
+
+  /* ===== PAYMENT MODAL ===== */
+  .modal-bg{
+    position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);
+    z-index:100;display:none;align-items:flex-end;
+  }
+  .modal-bg.show{display:flex}
+  .modal-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 24px 30px}
+  .modal-handle{width:36px;height:4px;background:#e5e5ea;border-radius:2px;margin:0 auto 16px}
+  .modal-title{font-size:17px;font-weight:700;text-align:center;margin-bottom:16px}
+  .modal-features{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+  .modal-feat{display:flex;align-items:center;gap:8px;font-size:13px;color:#333}
+  .modal-price{text-align:center;margin-bottom:16px}
+  .modal-price b{font-size:28px;color:#FF6B6B}
+  .modal-price small{font-size:11px;color:#8e8e93;display:block;margin-top:2px}
+  .modal-btn{width:100%;background:linear-gradient(135deg,#FF6B6B,#FF8E53);color:#fff;border:none;border-radius:26px;padding:14px;font-size:15px;font-weight:600;cursor:pointer}
+  .modal-close{text-align:center;padding:14px;font-size:13px;color:#8e8e93;cursor:pointer}
+
+  /* Toast */
+  .toast{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);
+    background:rgba(0,0,0,.75);color:#fff;padding:10px 22px;border-radius:10px;
+    font-size:13px;opacity:0;transition:all .3s;z-index:200;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+  /* Divider */
+  .h-divider{height:8px;background:#f5f5f7}
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="toast" id="toast">✅ 话术已复制</div>
+
+  <!-- ========== HOME ========== -->
+  <div class="screen" id="s-home">
+    <div class="home-scroll">
+      <!-- Header -->
+      <div class="h-header">
+        <div class="h-row">
+          <div class="h-title">🆘 社交急救包</div>
+          <div class="h-avatar">🧑</div>
+        </div>
+        <div class="h-stats">
+          <div class="h-stat"><b>28</b><span>已练习</span></div>
+          <div class="h-stat"><b>7天</b><span>🔥 连续</span></div>
+          <div class="h-stat"><b>85%</b><span>正确率</span></div>
+        </div>
+      </div>
+
+      <!-- Category Tags -->
+      <div class="h-tags" id="cat-tags">
+        <div class="h-tag active" onclick="filterCat(this,'all')">🔥 推荐</div>
+        <div class="h-tag" onclick="filterCat(this,'work')">🏢 职场</div>
+        <div class="h-tag" onclick="filterCat(this,'party')">🎉 聚会</div>
+        <div class="h-tag" onclick="filterCat(this,'love')">💕 恋爱</div>
+        <div class="h-tag" onclick="filterCat(this,'campus')">🎓 校园</div>
+        <div class="h-tag" onclick="filterCat(this,'daily')">🛒 日常</div>
+        <div class="h-tag" onclick="filterCat(this,'family')">🧧 亲戚</div>
+      </div>
+
+      <!-- Today Card / Quiz -->
+      <div class="h-card" id="quiz-card">
+        <div class="h-card-badge">
+          <span class="hot">🔥 今日推荐</span>
+          <span id="q-cat">🎉 社交聚会</span>
+          <span>·</span>
+          <span id="q-diff">⭐⭐</span>
+        </div>
+        <div class="h-card-scene" id="q-scene">
+          聚会上，有人当着大家的面问你：<br><br>
+          <strong>"你怎么这么安静啊？都不怎么说话。"</strong><br><br>
+          所有人都在看你，空气突然安静了……
+        </div>
+        <div class="h-card-hint" id="q-hint">👇 选一个你的应对方式</div>
+
+        <button class="h-start" id="btn-start" onclick="startQuiz()">🎯 开始答题</button>
+
+        <div class="h-options hidden" id="options-area">
+          <div class="h-opt" onclick="pick(this,0)">
+            <span class="h-letter">A</span>
+            <span>嗯……我就是比较内向，不太会说话……（低头沉默）</span>
+          </div>
+          <div class="h-opt" onclick="pick(this,1)">
+            <span class="h-letter">B</span>
+            <span>哈哈，我在认真听你们聊呢，你们太精彩了我都插不上嘴～</span>
+          </div>
+          <div class="h-opt" onclick="pick(this,2)">
+            <span class="h-letter">C</span>
+            <span>是吗？可能是我们不熟吧，熟了你就知道我话多了（翻白眼）</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result (shows after answering) -->
+      <div class="h-result hidden" id="result-area">
+        <div class="h-result-card">
+          <div class="h-result-label">✅ 最佳回答</div>
+          <div class="h-result-text" id="r-answer">"哈哈，我在认真听你们聊呢，你们太精彩了我都插不上嘴～"</div>
+          <div class="h-result-tag" id="r-tech">💡 用自嘲化解 + 先夸对方</div>
+        </div>
+        <div class="h-tips">
+          <div class="h-tips-title">📝 解析</div>
+          <div class="h-tips-text" id="r-tips">
+            ① <b>不否定自己</b>——没承认"我不爱说话"<br>
+            ② <b>夸了在场的人</b>——"你们太精彩了"让大家都舒服<br>
+            ③ <b>解释了原因</b>——不是我不说话，是你们聊得太好了<br>
+            ④ <b>语气轻松</b>——"哈哈"开头拉近距离<br><br>
+            <b>核心心法</b>：把"我不够好"转化为"你们很好"。
+          </div>
+        </div>
+        <div class="h-actions">
+          <div class="h-btn-copy" onclick="copyText()">📋 复制</div>
+          <div class="h-btn-next" onclick="nextQ()">下一题 →</div>
+        </div>
+      </div>
+
+      <!-- Unlock -->
+      <div class="h-unlock" onclick="showPay()">
+        <div>
+          <h3>🔓 解锁全部200+题库</h3>
+          <p>无限练习 · 分类浏览 · 收藏功能</p>
+        </div>
+        <div class="h-unlock-price">¥19.9</div>
+      </div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+      <div class="tab active" onclick="switchTab('home')">
+        <span class="tab-icon">🏠</span><span>首页</span>
+      </div>
+      <div class="tab" onclick="switchTab('profile')">
+        <span class="tab-icon">👤</span><span>我的</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PROFILE ========== -->
+  <div class="screen hidden" id="s-profile">
+    <div class="p-header">
+      <div class="p-avatar">🧑</div>
+      <div class="p-name">i人练习生</div>
+      <div class="p-badge">🏅 连续打卡7天</div>
+    </div>
+    <div class="p-stats">
+      <div class="p-stat"><b>28</b><span>已练习</span></div>
+      <div class="p-stat"><b>5</b><span>收藏</span></div>
+      <div class="p-stat"><b>85%</b><span>正确率</span></div>
+    </div>
+    <div class="p-menu">
+      <div class="p-item">
+        <span class="p-item-icon">⭐</span>
+        <span class="p-item-text">收藏题目</span>
+        <span class="p-item-badge">5</span>
+        <span class="p-item-arrow">›</span>
+      </div>
+      <div class="p-item">
+        <span class="p-item-icon">📊</span>
+        <span class="p-item-text">学习报告</span>
+        <span class="p-item-arrow">›</span>
+      </div>
+      <div class="p-item" onclick="showPay()">
+        <span class="p-item-icon">👑</span>
+        <span class="p-item-text">升级完整版</span>
+        <span class="p-item-price">¥19.9</span>
+        <span class="p-item-arrow">›</span>
+      </div>
+      <div class="p-item">
+        <span class="p-item-icon">📝</span>
+        <span class="p-item-text">社恐测评</span>
+        <span class="p-item-new">NEW</span>
+        <span class="p-item-arrow">›</span>
+      </div>
+      <div class="p-item">
+        <span class="p-item-icon">💬</span>
+        <span class="p-item-text">意见反馈</span>
+        <span class="p-item-arrow">›</span>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab" onclick="switchTab('home')">
+        <span class="tab-icon">🏠</span><span>首页</span>
+      </div>
+      <div class="tab active" onclick="switchTab('profile')">
+        <span class="tab-icon">👤</span><span>我的</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAYMENT MODAL ========== -->
+  <div class="modal-bg" id="pay-modal" onclick="if(event.target===this)hidePay()">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">🔓 解锁完整版</div>
+      <div class="modal-features">
+        <div class="modal-feat">✅ 全部 <b>200+</b> 社交场景题库</div>
+        <div class="modal-feat">🔄 无限次练习，不限次数</div>
+        <div class="modal-feat">📂 6大场景分类浏览</div>
+        <div class="modal-feat">⭐ 收藏功能，随时复习</div>
+        <div class="modal-feat">🆕 永久免费更新新题目</div>
+      </div>
+      <div class="modal-price">
+        <b>¥19.9</b>
+        <small>一杯奶茶钱，告别社交焦虑</small>
+      </div>
+      <div class="modal-btn">微信支付 →</div>
+      <div class="modal-close" onclick="hidePay()">暂不需要</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== Question bank =====
+const questions = [
+  {
+    cat:'🎉 社交聚会', catTag:'party', diff:'⭐⭐',
+    scene:'聚会上，有人当着大家的面问你：<br><br><strong>"你怎么这么安静啊？都不怎么说话。"</strong><br><br>所有人都在看你，空气突然安静了……',
+    options:[
+      '嗯……我就是比较内向，不太会说话……（低头沉默）',
+      '哈哈，我在认真听你们聊呢，你们太精彩了我都插不上嘴～',
+      '是吗？可能是我们不熟吧，熟了你就知道我话多了（翻白眼）'
+    ],
+    correct:1,
+    answer:'"哈哈，我在认真听你们聊呢，你们太精彩了我都插不上嘴～"',
+    tech:'💡 用自嘲化解 + 先夸对方',
+    tips:'① <b>不否定自己</b>——没承认"我不爱说话"<br>② <b>夸了在场的人</b>——"你们太精彩了"让大家都舒服<br>③ <b>解释了原因</b>——不是我不说话，是你们聊得太好了<br>④ <b>语气轻松</b>——"哈哈"开头拉近距离<br><br><b>核心心法</b>：把"我不够好"转化为"你们很好"。'
+  },
+  {
+    cat:'🏢 职场生存', catTag:'work', diff:'⭐⭐⭐',
+    scene:'开部门会时，领导突然点你名字让你发表意见，你完全没准备，脑子里一片空白……',
+    options:[
+      '嗯……我觉得都可以，听大家的吧（沉默低头）',
+      '不好意思打断一下，我刚才在梳理思路，有3点想补充：第一……',
+      '我没啥想法，这部分我不太了解'
+    ],
+    correct:1,
+    answer:'"不好意思打断一下，我刚才在梳理思路，有几点想补充……"',
+    tech:'💡 争取缓冲时间 + 展现积极性',
+    tips:'① "不好意思打断"争取了3-5秒思考时间<br>② "我在梳理思路"说明你一直在认真听<br>③ "有几点想补充"展现了工作态度<br>④ 即使真没想法，可以说"我想先听听大家的意见，稍后做一个总结"<br><br><b>核心心法</b>：用"缓冲句"给自己争取时间，永远不要说"我没想法"。'
+  },
+  {
+    cat:'🛒 日常人际', catTag:'daily', diff:'⭐',
+    scene:'别人夸你"哇你今天穿得好好看！"，你除了说"没有没有"就不知道怎么回了……',
+    options:[
+      '没有没有，其实很普通的（摆手）',
+      '谢谢！你今天也很好看呀，这件衣服超衬你的～',
+      '嗯，还行吧（面无表情）'
+    ],
+    correct:1,
+    answer:'"谢谢！你今天也很好看呀，这件衣服超衬你的～"',
+    tech:'💡 接受夸奖 + 反夸回去',
+    tips:'① "谢谢"大方接受，不否定自己<br>② "你今天也很好看"反夸让对方也开心<br>③ "超衬你"具体化，显得真诚不是客套<br>④ 语气自然轻松，不要太过<br><br><b>核心心法</b>：被夸时大方接受+真诚反夸=双方都舒服。习惯性否定自己("没有没有")反而会让气氛尴尬。'
+  },
+  {
+    cat:'🧧 亲戚应酬', catTag:'family', diff:'⭐⭐⭐',
+    scene:'过年聚餐，三姑突然问你：<br><br><strong>"一个月工资多少啊？年终奖发了没？"</strong><br><br>全桌人都在看你……',
+    options:[
+      '还行吧，够花的（含糊过去）',
+      '哈哈，跟去年差不多，勉强糊口。对了三姑，您家孩子今年考上哪个学校了？',
+      '这个不太方便说……（沉默尴尬）'
+    ],
+    correct:1,
+    answer:'"哈哈，跟去年差不多，勉强糊口。对了三姑，您家孩子今年考上哪个学校了？"',
+    tech:'💡 模糊带过 + 转移话题',
+    tips:'① "跟去年差不多"模糊回答，不透露具体数字<br>② "勉强糊口"用自嘲收尾，不显得高调也不显得回避<br>③ 迅速转移话题到对方身上<br>④ 转移的话题选对方引以为豪的事<br><br><b>核心心法</b>：面对不舒服的问题，模糊回答+转移到对方擅长的话题。'
+  },
+  {
+    cat:'💕 恋爱沟通', catTag:'love', diff:'⭐⭐',
+    scene:'暗恋的TA突然找你聊天了！发了条消息说"在干嘛呢"，你激动得手抖，该怎么回？',
+    options:[
+      '没干嘛（太冷淡）',
+      '在想你呀❤️（太油腻，还没在一起）',
+      '在看一个超有趣的东西！你猜是什么？哈哈'
+    ],
+    correct:2,
+    answer:'"在看一个超有趣的东西！你猜是什么？哈哈"',
+    tech:'💡 制造好奇心 + 互动邀请',
+    tips:'① 回复"没干嘛"=话题终结者<br>② "在想你"太激进，容易吓到对方<br>③ "超有趣的东西"制造好奇心，对方一定追问<br>④ "你猜"邀请对方参与互动<br>⑤ 无论对方猜什么，都能自然延续话题<br><br><b>核心心法</b>：好的回复不只是回答问题，而是让对方想继续聊下去。'
+  }
+];
+
+let currentQ = 0;
+let answered = false;
+
+function startQuiz(){
+  document.getElementById('btn-start').classList.add('hidden');
+  document.getElementById('q-hint').style.display='none';
+  document.getElementById('options-area').classList.remove('hidden');
+  answered = false;
+}
+
+function pick(el, idx){
+  if(answered) return;
+  answered = true;
+  const opts = document.querySelectorAll('.h-opt');
+  const q = questions[currentQ];
+
+  opts.forEach((o,i)=>{
+    o.classList.add('locked');
+    if(i===q.correct) o.classList.add('correct');
+    if(i===idx && idx!==q.correct) o.classList.add('wrong');
+  });
+
+  setTimeout(()=>{
+    document.getElementById('result-area').classList.remove('hidden');
+    document.getElementById('result-area').scrollIntoView({behavior:'smooth',block:'start'});
+  },600);
+}
+
+function nextQ(){
+  currentQ = (currentQ+1) % questions.length;
+  loadQ();
+}
+
+function loadQ(){
+  const q = questions[currentQ];
+  document.getElementById('q-cat').textContent = q.cat;
+  document.getElementById('q-diff').textContent = q.diff;
+  document.getElementById('q-scene').innerHTML = q.scene;
+  document.getElementById('r-answer').textContent = q.answer;
+  document.getElementById('r-tech').textContent = q.tech;
+  document.getElementById('r-tips').innerHTML = q.tips;
+
+  // Reset
+  document.getElementById('btn-start').classList.remove('hidden');
+  document.getElementById('q-hint').style.display='';
+  document.getElementById('options-area').classList.add('hidden');
+  document.getElementById('result-area').classList.add('hidden');
+  answered = false;
+
+  const opts = document.querySelectorAll('.h-opt');
+  opts.forEach(o=>{o.classList.remove('wrong','correct','locked')});
+
+  // Scroll to top of card
+  document.getElementById('quiz-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function filterCat(el, tag){
+  document.querySelectorAll('.h-tag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  // In prototype just shuffle
+  if(tag!=='all'){
+    currentQ = questions.findIndex(q=>q.catTag===tag);
+    if(currentQ===-1) currentQ=0;
+  } else {
+    currentQ = Math.floor(Math.random()*questions.length);
+  }
+  loadQ();
+}
+
+function copyText(){
+  const t=document.getElementById('toast');t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1200);
+}
+
+function switchTab(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
+  document.getElementById('s-'+name).classList.remove('hidden');
+}
+
+function showPay(){document.getElementById('pay-modal').classList.add('show')}
+function hidePay(){document.getElementById('pay-modal').classList.remove('show')}
+</script>
+</body>
+</html>

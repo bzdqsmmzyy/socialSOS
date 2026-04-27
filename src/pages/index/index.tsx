@@ -2,6 +2,7 @@ import { View, Text } from "@tarojs/components"
 import Taro from "@tarojs/taro"
 import { useQuizStore, CATEGORIES } from "@/store/quiz-store"
 import PaymentModal from "@/components/payment-modal"
+import { useEffect, useRef } from "react"
 import "./index.css"
 
 export default function Index() {
@@ -11,13 +12,29 @@ export default function Index() {
     currentQuestionIndex, quizPhase, selectedOption,
     startQuiz, selectOption, nextQuestion,
     getFilteredQuestions, canAnswer, getRemainingFreeCount,
-    isPaid, toggleFavorite, favorites
+    isPaid
   } = useQuizStore()
+
+  const resultRef = useRef<any>(null)
 
   const filteredQuestions = getFilteredQuestions()
   const currentQuestion = filteredQuestions[currentQuestionIndex] || filteredQuestions[0]
   const remainingFree = getRemainingFreeCount()
-  const isFavorited = currentQuestion ? favorites.includes(currentQuestion.id) : false
+
+  // After answering, scroll result into view with delay
+  useEffect(() => {
+    if (quizPhase === 'revealed' && resultRef.current) {
+      setTimeout(() => {
+        if (resultRef.current) {
+          resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 400)
+    }
+  }, [quizPhase])
+
+  const handleStartQuiz = () => {
+    startQuiz()
+  }
 
   const handleSelectOption = (optionIndex: number) => {
     if (!canAnswer()) {
@@ -33,55 +50,70 @@ export default function Index() {
       return
     }
     nextQuestion()
+    // Scroll to quiz card top
+    setTimeout(() => {
+      Taro.pageScrollTo({ selector: '.h-card', duration: 300 })
+    }, 100)
   }
 
   const handleCopyAnswer = () => {
     if (!currentQuestion) return
-    const answerText = currentQuestion.bestAnswer
-    Taro.setClipboardData({
-      data: answerText
-    })
+    Taro.setClipboardData({ data: currentQuestion.bestAnswer })
   }
 
-  const handleFavorite = () => {
-    if (!currentQuestion) return
-    if (!isPaid) {
-      setShowPaymentModal(true)
-      return
-    }
-    toggleFavorite(currentQuestion.id)
+  const getOptionClass = (idx: number) => {
+    if (quizPhase !== 'revealed' || selectedOption === null) return 'h-opt'
+    const isCorrect = idx === currentQuestion.correctIndex
+    const isSelected = idx === selectedOption
+    let cls = 'h-opt'
+    if (isCorrect) cls += ' h-opt-correct'
+    if (isSelected && !isCorrect) cls += ' h-opt-wrong'
+    if (quizPhase === 'revealed') cls += ' h-opt-locked'
+    return cls
+  }
+
+  const getLetterClass = (idx: number) => {
+    if (quizPhase !== 'revealed' || selectedOption === null) return 'h-letter'
+    const isCorrect = idx === currentQuestion.correctIndex
+    const isSelected = idx === selectedOption
+    let cls = 'h-letter'
+    if (isCorrect) cls += ' h-letter-correct'
+    if (isSelected && !isCorrect) cls += ' h-letter-wrong'
+    return cls
   }
 
   return (
     <View className="page-container">
-      {/* Gradient Header with Stats */}
-      <View className="home-header">
-        <Text className="block text-2xl font-bold text-white">🆘 社交急救包</Text>
-        <Text className="block text-sm text-white text-opacity-90 mt-1">每天3分钟，告别社交尴尬</Text>
-        <View className="home-stats">
-          <View className="stat-card">
-            <Text className="block text-xl font-bold text-white">🔥 {userStats.practiced}题</Text>
+      {/* ===== Header ===== */}
+      <View className="h-header">
+        <View className="h-row">
+          <Text className="h-title">🆘 社交急救包</Text>
+          <View className="h-avatar">
+            <Text className="block text-base">🧑</Text>
+          </View>
+        </View>
+        <View className="h-stats">
+          <View className="h-stat">
+            <Text className="block text-lg font-bold text-white">{userStats.practiced}</Text>
             <Text className="block text-xs text-white text-opacity-80">已练习</Text>
           </View>
-          <View className="stat-card">
-            <Text className="block text-xl font-bold text-white">⚡ {userStats.streak}天</Text>
-            <Text className="block text-xs text-white text-opacity-80">连续打卡</Text>
+          <View className="h-stat">
+            <Text className="block text-lg font-bold text-white">🔥 {userStats.streak}天</Text>
+            <Text className="block text-xs text-white text-opacity-80">连续</Text>
           </View>
-          {!isPaid && (
-            <View className="stat-card-free">
-              <Text className="block text-xl font-bold text-white">🎁 {remainingFree}</Text>
-              <Text className="block text-xs text-white text-opacity-80">今日免费</Text>
-            </View>
-          )}
+          <View className="h-stat">
+            <Text className="block text-lg font-bold text-white">{userStats.accuracy}%</Text>
+            <Text className="block text-xs text-white text-opacity-80">正确率</Text>
+          </View>
         </View>
       </View>
 
-      {/* Scene Tags - Horizontal Scroll */}
-      <View className="tags-container">
+      {/* ===== Category Tags ===== */}
+      <View className="h-tags">
         {CATEGORIES.map((cat) => (
           <View
             key={cat.id}
-            className={`tag-item ${currentCategoryFilter === cat.id ? 'tag-active' : ''}`}
+            className={`h-tag ${currentCategoryFilter === cat.id ? 'h-tag-active' : ''}`}
             onClick={() => setCurrentCategoryFilter(cat.id)}
           >
             <Text className={`block text-sm ${currentCategoryFilter === cat.id ? 'text-white font-semibold' : 'text-gray-600'}`}>
@@ -91,128 +123,105 @@ export default function Index() {
         ))}
       </View>
 
-      {/* Quiz Area - Embedded */}
+      {/* ===== Quiz Card ===== */}
       {currentQuestion && (
-        <View className="quiz-area">
-          {/* Phase: Scene Display */}
-          {quizPhase === 'scene' && (
-            <View className="scene-card">
-              <View className="scene-header">
-                <View className="scene-tag">
-                  <Text className="block text-xs text-primary font-medium">{currentQuestion.categoryTag}</Text>
-                </View>
-                {currentQuestion.isHot && (
-                  <View className="hot-tag">
-                    <Text className="block text-xs text-white font-medium">🔥 热门</Text>
-                  </View>
-                )}
-              </View>
-              <Text className="block text-lg font-bold text-gray-900 leading-relaxed mt-4">
-                {currentQuestion.sceneFull}
+        <View className="h-card">
+          {/* Badge */}
+          <View className="h-card-badge">
+            <View className="h-hot-tag">
+              <Text className="block text-xs text-primary font-semibold">🔥 今日推荐</Text>
+            </View>
+            <Text className="block text-xs text-gray-400">{currentQuestion.categoryTag}</Text>
+            <Text className="block text-xs text-gray-400">·</Text>
+            <Text className="block text-xs text-gray-400">{'⭐'.repeat(currentQuestion.difficulty)}</Text>
+          </View>
+
+          {/* Scene */}
+          <View className="h-card-scene">
+            {currentQuestion.sceneFull.split('\n').map((line, i) => (
+              <Text key={i} className="block text-base text-gray-900 leading-relaxed">
+                {line === '' ? '\n' : line}
               </Text>
-              <View className="scene-action">
-                <View className="start-btn" onClick={startQuiz}>
-                  <Text className="block text-base font-bold text-white">🎯 开始答题</Text>
-                </View>
+            ))}
+          </View>
+
+          {/* Hint / Start Button */}
+          {quizPhase === 'scene' && (
+            <View>
+              <View className="h-card-hint">
+                <Text className="block text-xs text-gray-400 text-center">👇 选一个你的应对方式</Text>
+              </View>
+              <View className="h-start" onClick={handleStartQuiz}>
+                <Text className="block text-base font-bold text-white text-center">🎯 开始答题</Text>
               </View>
             </View>
           )}
 
-          {/* Phase: Selecting */}
-          {quizPhase === 'selecting' && (
-            <View className="selecting-card">
-              <View className="scene-mini">
-                <View className="scene-tag">
-                  <Text className="block text-xs text-primary font-medium">{currentQuestion.categoryTag}</Text>
-                </View>
-                <Text className="block text-base font-semibold text-gray-900 leading-relaxed mt-2">
-                  {currentQuestion.scene}
-                </Text>
-              </View>
-              <Text className="block text-sm text-gray-500 mt-4 mb-3">选一个你会说的答案👇</Text>
+          {/* Options */}
+          {quizPhase !== 'scene' && (
+            <View className="h-options">
               {currentQuestion.options.map((option, idx) => (
                 <View
                   key={idx}
-                  className="option-item"
+                  className={getOptionClass(idx)}
                   onClick={() => handleSelectOption(idx)}
                 >
-                  <View className="option-letter">
-                    <Text className="block text-sm font-bold text-primary">{option.letter}</Text>
+                  <View className={getLetterClass(idx)}>
+                    <Text className="block text-xs font-bold">{option.letter}</Text>
                   </View>
                   <Text className="block flex-1 text-sm text-gray-800 leading-relaxed">{option.text}</Text>
                 </View>
               ))}
             </View>
           )}
-
-          {/* Phase: Revealed */}
-          {quizPhase === 'revealed' && selectedOption !== null && (
-            <View className="revealed-card">
-              {/* Your Selection */}
-              <View className={`your-answer ${selectedOption === currentQuestion.correctIndex ? 'answer-correct' : 'answer-wrong'}`}>
-                <Text className="block text-sm font-semibold text-white">
-                  {selectedOption === currentQuestion.correctIndex ? '✅ 选对了！高情商！' : '❌ 选错了，正确答案是 ' + currentQuestion.options[currentQuestion.correctIndex].letter}
-                </Text>
-              </View>
-
-              {/* Best Answer */}
-              <View className="best-answer-section">
-                <Text className="block text-sm font-bold text-gray-900 mb-2">💬 最佳话术</Text>
-                <View className="best-answer-box">
-                  <Text className="block text-sm text-gray-800 leading-relaxed">
-                    &ldquo;{currentQuestion.bestAnswer}&rdquo;
-                  </Text>
-                </View>
-                <View className="copy-btn" onClick={handleCopyAnswer}>
-                  <Text className="block text-xs font-semibold text-primary">📋 复制话术</Text>
-                </View>
-              </View>
-
-              {/* Technique Tag */}
-              <View className="technique-section">
-                <View className="technique-tag">
-                  <Text className="block text-xs font-semibold text-primary">💡 {currentQuestion.technique}</Text>
-                </View>
-              </View>
-
-              {/* Tips */}
-              <View className="tips-section">
-                <Text className="block text-xs font-bold text-gray-500 mb-1">💡 社交小贴士</Text>
-                <Text className="block text-xs text-gray-600 leading-relaxed">{currentQuestion.tips}</Text>
-              </View>
-
-              {/* Actions */}
-              <View className="revealed-actions">
-                <View className="fav-btn" onClick={handleFavorite}>
-                  <Text className="block text-sm">{isFavorited ? '❤️' : '🤍'}</Text>
-                  <Text className="block text-xs text-gray-500 ml-1">收藏</Text>
-                </View>
-                <View className="next-btn" onClick={handleNext}>
-                  <Text className="block text-sm font-bold text-white">
-                    下一题 →
-                  </Text>
-                </View>
-              </View>
-            </View>
-          )}
         </View>
       )}
 
-      {/* Unlock Banner */}
-      {!isPaid && (
-        <View className="unlock-banner" onClick={() => setShowPaymentModal(true)}>
-          <View className="flex-1">
-            <Text className="block text-sm font-semibold text-white">🔒 解锁全部200+题库</Text>
-            <Text className="block text-xs text-white text-opacity-80 mt-1">无限练习 · 分类浏览 · 收藏功能 · 仅¥19.9</Text>
+      {/* ===== Result Area (below card) ===== */}
+      {quizPhase === 'revealed' && selectedOption !== null && currentQuestion && (
+        <View className="h-result" ref={resultRef}>
+          {/* Best Answer */}
+          <View className="h-result-card">
+            <Text className="block text-xs text-green-600 font-semibold mb-1">✅ 最佳回答</Text>
+            <Text className="block text-sm text-gray-900 leading-relaxed">{currentQuestion.bestAnswer}</Text>
+            <View className="h-result-tag">
+              <Text className="block text-xs text-green-700 font-medium">💡 {currentQuestion.technique}</Text>
+            </View>
           </View>
-          <View className="unlock-price-tag">
+
+          {/* Tips */}
+          <View className="h-tips">
+            <Text className="block text-xs text-orange-600 font-semibold mb-1">📝 解析</Text>
+            <Text className="block text-xs text-gray-700 leading-relaxed">{currentQuestion.tips}</Text>
+          </View>
+
+          {/* Actions */}
+          <View className="h-actions">
+            <View className="h-btn-copy" onClick={handleCopyAnswer}>
+              <Text className="block text-sm font-semibold text-center">📋 复制</Text>
+            </View>
+            <View className="h-btn-next" onClick={handleNext}>
+              <Text className="block text-sm font-semibold text-center">下一题 →</Text>
+            </View>
+          </View>
+        </View>
+      )}
+
+      {/* ===== Unlock Banner ===== */}
+      {!isPaid && (
+        <View className="h-unlock" onClick={() => setShowPaymentModal(true)}>
+          <View className="flex-1">
+            <Text className="block text-sm font-semibold text-white">🔓 解锁全部200+题库</Text>
+            <Text className="block text-xs text-white text-opacity-80 mt-1">无限练习 · 分类浏览 · 收藏功能</Text>
+          </View>
+          <View className="h-unlock-price">
             <Text className="text-sm font-bold text-purple-700">¥19.9</Text>
           </View>
         </View>
       )}
 
       {/* Bottom spacing for TabBar */}
-      <View className="h-20" />
+      <View className="h-24" />
 
       {/* Payment Modal */}
       <PaymentModal open={showPaymentModal} onClose={() => setShowPaymentModal(false)} />
