@@ -1,32 +1,32 @@
 .sr-page {
   min-height: 100vh;
   background-color: #FFF8F6;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: calc(60px + env(safe-area-inset-bottom));
 }
 
 /* ===== Header ===== */
 .sr-header {
   position: relative;
   background: linear-gradient(135deg, #2D1B69 0%, #5B3E9E 40%, #E11D48 100%);
-  padding: 20px 20px 32px;
-  border-radius: 0 0 28px 28px;
-  margin-bottom: 20px;
+  padding: 24px 24px 40px;
+  border-radius: 0 0 32px 32px;
+  margin-bottom: 24px;
   overflow: hidden;
 }
 
 .sr-back-btn {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .sr-back-icon {
-  font-size: 17px;
+  font-size: 18px;
   color: #ffffff;
   font-weight: 600;
 }
@@ -37,41 +37,43 @@
 }
 
 .sr-header-title {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
   color: #ffffff;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   letter-spacing: 1px;
+  line-height: 1.3;
 }
 
 .sr-header-sub {
-  font-size: 14px;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
 }
 
 .sr-header-decor {
   position: absolute;
-  right: 16px;
-  top: 24px;
+  right: 20px;
+  top: 28px;
 }
 
 .sr-decor-film {
-  font-size: 52px;
+  font-size: 56px;
   opacity: 0.3;
 }
 
 /* ===== Cards Container ===== */
 .sr-cards {
-  padding: 0 16px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 
 /* ===== Series Card ===== */
 .sr-card {
   position: relative;
-  border-radius: 18px;
+  border-radius: 22px;
   overflow: hidden;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
 }
@@ -80,7 +82,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 18px;
+  border-radius: 22px;
   padding: 2px;
   background: linear-gradient(135deg, #E11D48, #F43F5E, #FFD93D);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -95,8 +97,8 @@
 
 .sr-card-inner {
   background: #ffffff;
-  border-radius: 18px;
-  padding: 20px;
+  border-radius: 22px;
+  padding: 24px;
 }
 
 .sr-card-locked .sr-card-inner {
@@ -105,37 +107,37 @@
 
 /* Card header */
 .sr-card-header {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .sr-card-name-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  gap: 12px;
+  margin-bottom: 10px;
 }
 
 .sr-card-name {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: #1a1a1a;
 }
 
 .sr-card-desc {
-  font-size: 13px;
+  font-size: 14px;
   color: #888;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Badges */
 .sr-badge-done {
   background: linear-gradient(135deg, #FFD700, #FFA500);
-  border-radius: 10px;
-  padding: 3px 10px;
+  border-radius: 12px;
+  padding: 4px 12px;
 }
 
 .sr-badge-done-text {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: #ffffff;
 }
@@ -150,29 +152,29 @@
 
 /* Progress */
 .sr-card-progress-wrap {
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
 .sr-card-progress-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .sr-progress-label {
-  font-size: 12px;
+  font-size: 13px;
   color: #aaa;
 }
 
 .sr-progress-pct {
-  font-size: 12px;
+  font-size: 13px;
   color: #ccc;
 }
 
 .sr-progress-bar {
   width: 100%;
-  height: 6px;
+  height: 8px;
   background: #f0f0f2;
   border-radius: 10px;
   overflow: hidden;
@@ -192,8 +194,8 @@
 /* Card action button */
 .sr-card-action {
   background: linear-gradient(135deg, #E11D48, #F43F5E);
-  border-radius: 24px;
-  padding: 10px;
+  border-radius: 28px;
+  padding: 16px;
   text-align: center;
 }
 
@@ -206,7 +208,7 @@
 }
 
 .sr-action-text {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #ffffff;
 }

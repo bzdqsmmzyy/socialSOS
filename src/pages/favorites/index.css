@@ -7,17 +7,17 @@
 /* Header */
 .fav-header {
   background: linear-gradient(135deg, #E11D48 0%, #F43F5E 100%);
-  padding: 20px 20px 24px;
+  padding: 24px 24px 32px;
   text-align: center;
-  border-radius: 0 0 24px 24px;
+  border-radius: 0 0 28px 28px;
 }
 
 .fav-header-badge {
   display: inline-block;
   margin-top: 8px;
   background: rgba(255, 255, 255, 0.18);
-  border-radius: 14px;
-  padding: 4px 16px;
+  border-radius: 16px;
+  padding: 6px 20px;
 }
 
 /* Empty state */
@@ -26,23 +26,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 40px;
+  padding: 100px 40px;
   text-align: center;
 }
 
 /* List */
 .fav-list {
-  padding: 16px;
+  padding: 24px 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
 }
 
 /* Card */
 .fav-card {
   background: #FFFFFF;
-  border-radius: 18px;
-  padding: 18px;
+  border-radius: 22px;
+  padding: 24px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid #f0f0f0;
   transition: transform 0.15s;
@@ -60,28 +60,28 @@
 
 .fav-cat-tag {
   background: linear-gradient(135deg, #E11D48, #F43F5E);
-  border-radius: 12px;
-  padding: 3px 12px;
+  border-radius: 14px;
+  padding: 5px 16px;
   display: inline-block;
 }
 
 .fav-tech {
   background: #F0FFF4;
-  border-radius: 10px;
-  padding: 6px 12px;
-  margin-bottom: 8px;
+  border-radius: 12px;
+  padding: 8px 16px;
+  margin-bottom: 12px;
   display: inline-block;
 }
 
 .fav-unfav {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 12px;
+  padding: 6px 16px;
+  border-radius: 14px;
   background: #FFF8F6;
   margin-top: 4px;
 }
 
 /* Bottom spacing */
 .fav-bottom {
-  height: 60px;
+  height: 80px;
 }
