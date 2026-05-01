@@ -2,7 +2,7 @@
 
 .c-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FFF5F5 0%, #F5F5F7 60%);
+  background: linear-gradient(180deg, #FFF8F6 0%, #FFF8F6 60%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,14 +15,14 @@
 /* ===== Header ===== */
 .c-header {
   width: 100%;
-  padding: 56px 0 8px;
+  padding: calc(env(safe-area-inset-top, 20px) + 24px) 0 8px;
   text-align: center;
 }
 
 .c-eyebrow {
   font-size: 13px;
   font-weight: 600;
-  color: #FF6B6B;
+  color: #E11D48;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 8px;
@@ -31,7 +31,7 @@
 .c-title {
   font-size: 26px;
   font-weight: 800;
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(135deg, #E11D48, #F43F5E);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -83,8 +83,8 @@
 }
 
 .c-card-selected {
-  border-color: #FF6B6B;
-  background: linear-gradient(135deg, #FFF5F5, #FFEEED);
+  border-color: #E11D48;
+  background: linear-gradient(135deg, #FFF8F6, #FFE4E6);
   box-shadow: 0 4px 20px rgba(255, 107, 107, 0.18);
 }
 
@@ -99,7 +99,7 @@
   right: -2px;
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(135deg, #E11D48, #F43F5E);
   border-radius: 0 20px 0 16px;
   display: flex;
   align-items: center;
@@ -136,11 +136,11 @@
 }
 
 .c-emoji-idle {
-  background: #F5F5F7;
+  background: #FFF8F6;
 }
 
 .c-emoji-selected {
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(135deg, #E11D48, #F43F5E);
   box-shadow: 0 4px 14px rgba(255, 107, 107, 0.3);
   transform: scale(1.06);
 }
@@ -188,7 +188,7 @@
 }
 
 .c-arrow-selected {
-  color: #FF6B6B;
+  color: #E11D48;
 }
 
 /* ===== Confirm Button ===== */
@@ -210,7 +210,7 @@
 }
 
 .c-btn-active {
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(135deg, #E11D48, #F43F5E);
   color: #ffffff;
   box-shadow: 0 8px 24px rgba(255, 107, 107, 0.35);
 }

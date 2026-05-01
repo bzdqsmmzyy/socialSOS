@@ -1,13 +1,13 @@
 /* ===== Cheatsheets Page ===== */
 .cs-page {
   min-height: 100vh;
-  background: #F5F5F7;
+  background: #FFF8F6;
 }
 
 /* Header */
 .cs-header {
-  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
-  padding: 50px 20px 24px;
+  background: linear-gradient(135deg, #E11D48 0%, #F43F5E 100%);
+  padding: calc(env(safe-area-inset-top, 20px) + 20px) 20px 24px;
   text-align: center;
   border-radius: 0 0 24px 24px;
 }
@@ -63,7 +63,7 @@
   height: 20px;
   border-radius: 2px;
   margin-right: 10px;
-  background: linear-gradient(180deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(180deg, #E11D48, #F43F5E);
 }
 
 /* Group body */
@@ -82,7 +82,7 @@
 
 .cs-rule-wrap {
   padding: 8px 14px;
-  background: linear-gradient(135deg, #FFF5F5, #FFF0EC);
+  background: linear-gradient(135deg, #FFF8F6, #FFF0EC);
   border-radius: 12px;
   margin-bottom: 8px;
 }

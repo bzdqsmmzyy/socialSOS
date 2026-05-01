@@ -257,7 +257,7 @@ export const RANKS: Rank[] = [
   { id: 'silver', name: '白银i人', icon: '🥈', color: '#C0C0C0', minScore: 20 },
   { id: 'gold', name: '黄金社交者', icon: '🥇', color: '#FFD700', minScore: 40 },
   { id: 'diamond', name: '钻石社牛', icon: '💎', color: '#B9F2FF', minScore: 65 },
-  { id: 'king', name: '王者社牛', icon: '👑', color: '#FF6B6B', minScore: 85 }
+  { id: 'king', name: '王者社牛', icon: '👑', color: '#E11D48', minScore: 85 }
 ]
 
 export const CATEGORIES: Category[] = [

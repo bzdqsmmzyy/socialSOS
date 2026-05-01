@@ -171,7 +171,17 @@ export default function QuizEngine({ question, onNext }: QuizEngineProps) {
       return
     }
 
-    setTimeLeft(5)
+    // FillBlank type: no timer, give user unlimited time to type
+    if (question.questionType === "fillBlank") {
+      setTimerActive(false)
+      return
+    }
+
+    // Puzzle type: extended timer (30s)
+    // Other types: standard 15s timer
+    const timerDuration = question.questionType === "puzzle" ? 30 : 15
+
+    setTimeLeft(timerDuration)
     setTimerActive(true)
     const interval = setInterval(() => {
       const st = useQuizStore.getState()
@@ -322,8 +332,9 @@ export default function QuizEngine({ question, onNext }: QuizEngineProps) {
 
   const renderTimerBar = () => {
     if (!settings.enableTimer || quizPhase !== "selecting" || !timerActive) return null
-    const pct = Math.max(0, (timeLeft / 5) * 100)
-    const isUrgent = timeLeft <= 2
+    const timerDuration = question?.questionType === "puzzle" ? 30 : 15
+    const pct = Math.max(0, (timeLeft / timerDuration) * 100)
+    const isUrgent = timeLeft <= 3
     return (
       <View className="qe-timer-wrap">
         <View className="qe-timer-bar">
@@ -557,7 +568,7 @@ export default function QuizEngine({ question, onNext }: QuizEngineProps) {
                           (1 - Math.abs(fillInput.length - question.blankAnswer.length) /
                             Math.max(fillInput.length, question.blankAnswer.length, 1)) * 100
                         )))}%`,
-                        background: "linear-gradient(90deg, #FF6B6B, #FFD700, #34C759)",
+                        background: "linear-gradient(90deg, #E11D48, #FFD700, #34C759)",
                       }}
                     />
                   </View>
@@ -715,7 +726,7 @@ export default function QuizEngine({ question, onNext }: QuizEngineProps) {
         {/* Dilemma Explanation */}
         {quizPhase === "revealed" && question.dilemmaExplanation && (
           <View className="qe-dilemma-explain qe-fade-in">
-            <Text className="qe-dilemma-result-label" style={{ color: "#FF6B6B" }}>
+            <Text className="qe-dilemma-result-label" style={{ color: "#E11D48" }}>
               {selectedOption === question.correctIndex ? "✅ 选对了！" : "😅 不太妙..."}
             </Text>
             <Text className="block text-sm leading-relaxed" style={{ color: "#333" }}>

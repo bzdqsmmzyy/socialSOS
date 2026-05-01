@@ -96,10 +96,10 @@ export default function Profile() {
           <Text className="block text-xxs text-gray-400 tracking-wider">社交经验值</Text>
         </View>
         <View className="flex items-center justify-between mt-1 mb-2">
-          <Text className="block text-base font-bold" style="color:#FF6B6B">
+          <Text className="block text-base font-bold" style="color:#E11D48">
             {totalXP} XP
           </Text>
-          <Text className="block text-xs font-semibold" style="color:#FF8E53">
+          <Text className="block text-xs font-semibold" style="color:#F43F5E">
             {currentRank.icon} {currentRank.name}
           </Text>
         </View>

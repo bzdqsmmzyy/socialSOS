@@ -123,20 +123,22 @@ export default function Index() {
       {/* ==================== CATEGORY TAGS ==================== */}
       <View className="h-tags-v2">
         <ScrollView scrollX enhanced showScrollbar={false} className="h-tags-scroll">
-          {CATEGORIES.map((cat) => {
-            const isActive = currentCategoryFilter === cat.id
-            return (
-              <View
-                key={cat.id}
-                className={`h-tag-chip ${isActive ? 'h-tag-chip-active' : ''}`}
-                onClick={() => setCurrentCategoryFilter(cat.id)}
-              >
-                <Text className={`block text-xs font-semibold ${isActive ? 'text-white' : 'text-gray-600'}`}>
-                  {cat.tag}
-                </Text>
-              </View>
-            )
-          })}
+          <View className="h-tags-inner">
+            {CATEGORIES.map((cat) => {
+              const isActive = currentCategoryFilter === cat.id
+              return (
+                <View
+                  key={cat.id}
+                  className={`h-tag-chip ${isActive ? 'h-tag-chip-active' : ''}`}
+                  onClick={() => setCurrentCategoryFilter(cat.id)}
+                >
+                  <Text className={`block text-xs font-semibold ${isActive ? 'text-white' : 'text-gray-600'}`}>
+                    {cat.tag}
+                  </Text>
+                </View>
+              )
+            })}
+          </View>
         </ScrollView>
       </View>
 
@@ -144,7 +146,7 @@ export default function Index() {
       {dailyChallenge && (
         <View className="h-daily-card" onClick={handleDailyChallenge}>
           <View className="h-daily-badge">
-            <Text className="block text-xs font-bold" style={{ color: '#FF6B6B' }}>🔥 今日社死挑战</Text>
+            <Text className="block text-xs font-bold" style={{ color: '#E11D48' }}>🔥 今日社死挑战</Text>
             <View className="flex flex-row items-center gap-1">
               <Text className="block text-xs text-orange-400">{'⭐'.repeat(dailyChallenge.difficulty)}</Text>
               <Text className="block text-xs text-gray-400">{dailyChallenge.categoryTag}</Text>
@@ -222,12 +224,12 @@ export default function Index() {
       <View className="h-bottom-stats">
         <View className="h-bottom-stats-row">
           <View className="h-bs-item">
-            <Text className="block text-lg font-bold" style={{ color: '#FF6B6B' }}>{displayStats.practiced}</Text>
+            <Text className="block text-lg font-bold" style={{ color: '#E11D48' }}>{displayStats.practiced}</Text>
             <Text className="block text-xs text-gray-400">今日练习</Text>
           </View>
           <View className="h-bs-divider" />
           <View className="h-bs-item">
-            <Text className="block text-lg font-bold" style={{ color: '#FF6B6B' }}>{displayStats.streak}天</Text>
+            <Text className="block text-lg font-bold" style={{ color: '#E11D48' }}>{displayStats.streak}天</Text>
             <Text className="block text-xs text-gray-400">连续打卡</Text>
           </View>
           <View className="h-bs-divider" />

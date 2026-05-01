@@ -1,13 +1,13 @@
 .sr-page {
   min-height: 100vh;
-  background-color: #F5F5F7;
+  background-color: #FFF8F6;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* ===== Header ===== */
 .sr-header {
   position: relative;
-  background: linear-gradient(135deg, #2D1B69 0%, #5B3E9E 40%, #FF6B6B 100%);
+  background: linear-gradient(135deg, #2D1B69 0%, #5B3E9E 40%, #E11D48 100%);
   padding: 20px 20px 32px;
   border-radius: 0 0 28px 28px;
   margin-bottom: 20px;
@@ -82,7 +82,7 @@
   inset: 0;
   border-radius: 18px;
   padding: 2px;
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53, #FFD93D);
+  background: linear-gradient(135deg, #E11D48, #F43F5E, #FFD93D);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -180,7 +180,7 @@
 
 .sr-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(90deg, #E11D48, #F43F5E);
   border-radius: 10px;
   transition: width 0.3s ease;
 }
@@ -191,7 +191,7 @@
 
 /* Card action button */
 .sr-card-action {
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  background: linear-gradient(135deg, #E11D48, #F43F5E);
   border-radius: 24px;
   padding: 10px;
   text-align: center;

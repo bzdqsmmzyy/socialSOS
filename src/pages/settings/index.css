@@ -1,6 +1,6 @@
 .st-page {
   min-height: 100vh;
-  background-color: #F5F5F7;
+  background-color: #FFF8F6;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -125,7 +125,7 @@
 }
 
 .st-item-danger:active {
-  background: #FFF5F5;
+  background: #FFF8F6;
 }
 
 .st-arrow {
