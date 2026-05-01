@@ -1,13 +1,13 @@
 /* ===== Page ===== */
 .p-page {
   min-height: 100vh;
-  background: #FFF8F6;
+  background: #F5F5FA;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* ===== Header ===== */
 .p-header {
-  background: linear-gradient(160deg, #E11D48 0%, #F43F5E 35%, #FB7185 100%);
+  background: linear-gradient(160deg, #6C5CE7 0%, #A29BFE 35%, #C4B5FD 100%);
   padding: 28px 24px 36px;
   display: flex;
   flex-direction: column;
@@ -118,7 +118,7 @@
   padding: 22px 10px;
   text-align: center;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.03);
-  border: 1.5px solid #F3E8E8;
+  border: 1.5px solid #E4E1F0;
   transition: transform 0.2s;
 }
 
@@ -133,7 +133,7 @@
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.03);
-  border: 1.5px solid #F3E8E8;
+  border: 1.5px solid #E4E1F0;
 }
 
 .p-menu-item {
@@ -149,7 +149,7 @@
 }
 
 .p-menu-item:active {
-  background: #FFF1F2;
+  background: #EDEDF7;
 }
 
 /* ===== Version Tag ===== */
@@ -162,7 +162,7 @@
 /* ===== Upgrade Card ===== */
 .p-upgrade {
   margin: 20px 20px;
-  background: linear-gradient(135deg, #E11D48, #F43F5E, #FB7185);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE, #C4B5FD);
   border-radius: 24px;
   padding: 28px;
   box-shadow: 0 8px 28px rgba(225, 29, 72, 0.2);
@@ -175,7 +175,7 @@
 
 .p-upgrade-btn {
   background: #fff;
-  color: #E11D48;
+  color: #6C5CE7;
   font-weight: 700;
   padding: 14px 32px;
   border-radius: 24px;

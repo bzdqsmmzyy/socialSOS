@@ -1,13 +1,13 @@
 .sr-page {
   min-height: 100vh;
-  background-color: #FFF8F6;
+  background-color: #F5F5FA;
   padding-bottom: calc(60px + env(safe-area-inset-bottom));
 }
 
 /* ===== Header ===== */
 .sr-header {
   position: relative;
-  background: linear-gradient(135deg, #2D1B69 0%, #5B3E9E 40%, #E11D48 100%);
+  background: linear-gradient(135deg, #2D1B69 0%, #5B3E9E 40%, #6C5CE7 100%);
   padding: 24px 24px 40px;
   border-radius: 0 0 32px 32px;
   margin-bottom: 24px;
@@ -84,7 +84,7 @@
   inset: 0;
   border-radius: 22px;
   padding: 2px;
-  background: linear-gradient(135deg, #E11D48, #F43F5E, #FFD93D);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE, #FFD93D);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -182,7 +182,7 @@
 
 .sr-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E11D48, #F43F5E);
+  background: linear-gradient(90deg, #6C5CE7, #A29BFE);
   border-radius: 10px;
   transition: width 0.3s ease;
 }
@@ -193,7 +193,7 @@
 
 /* Card action button */
 .sr-card-action {
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   border-radius: 28px;
   padding: 16px;
   text-align: center;

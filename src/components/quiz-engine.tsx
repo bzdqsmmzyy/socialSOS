@@ -568,7 +568,7 @@ export default function QuizEngine({ question, onNext }: QuizEngineProps) {
                           (1 - Math.abs(fillInput.length - question.blankAnswer.length) /
                             Math.max(fillInput.length, question.blankAnswer.length, 1)) * 100
                         )))}%`,
-                        background: "linear-gradient(90deg, #E11D48, #FFD700, #34C759)",
+                        background: "linear-gradient(90deg, #6C5CE7, #FFD700, #34C759)",
                       }}
                     />
                   </View>
@@ -726,7 +726,7 @@ export default function QuizEngine({ question, onNext }: QuizEngineProps) {
         {/* Dilemma Explanation */}
         {quizPhase === "revealed" && question.dilemmaExplanation && (
           <View className="qe-dilemma-explain qe-fade-in">
-            <Text className="qe-dilemma-result-label" style={{ color: "#E11D48" }}>
+            <Text className="qe-dilemma-result-label" style={{ color: "#6C5CE7" }}>
               {selectedOption === question.correctIndex ? "✅ 选对了！" : "😅 不太妙..."}
             </Text>
             <Text className="block text-sm leading-relaxed" style={{ color: "#333" }}>

@@ -2,7 +2,7 @@
 
 .c-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FFF8F6 0%, #FFF8F6 60%);
+  background: linear-gradient(180deg, #F5F5FA 0%, #F5F5FA 60%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@
 .c-eyebrow {
   font-size: 13px;
   font-weight: 600;
-  color: #E11D48;
+  color: #6C5CE7;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -31,7 +31,7 @@
 .c-title {
   font-size: 28px;
   font-weight: 800;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -83,8 +83,8 @@
 }
 
 .c-card-selected {
-  border-color: #E11D48;
-  background: linear-gradient(135deg, #FFF8F6, #FFE4E6);
+  border-color: #6C5CE7;
+  background: linear-gradient(135deg, #F5F5FA, #DDD6FE);
   box-shadow: 0 4px 20px rgba(225, 29, 72, 0.18);
 }
 
@@ -99,7 +99,7 @@
   right: -2px;
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   border-radius: 0 24px 0 18px;
   display: flex;
   align-items: center;
@@ -136,11 +136,11 @@
 }
 
 .c-emoji-idle {
-  background: #FFF8F6;
+  background: #F5F5FA;
 }
 
 .c-emoji-selected {
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
   transform: scale(1.06);
 }
@@ -165,7 +165,7 @@
 }
 
 .c-name-selected {
-  color: #E11D48;
+  color: #6C5CE7;
 }
 
 .c-desc {
@@ -188,7 +188,7 @@
 }
 
 .c-arrow-selected {
-  color: #E11D48;
+  color: #6C5CE7;
 }
 
 /* ===== Confirm Button ===== */
@@ -210,7 +210,7 @@
 }
 
 .c-btn-active {
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   color: #ffffff;
   box-shadow: 0 8px 24px rgba(225, 29, 72, 0.35);
 }

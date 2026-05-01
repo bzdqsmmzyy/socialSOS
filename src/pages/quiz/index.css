@@ -1,6 +1,6 @@
 .sq-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FFF5F3 0%, #FFF8F6 100%);
+  background: linear-gradient(180deg, #F5F5FA 0%, #F5F5FA 100%);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -18,7 +18,7 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +75,7 @@
 
 .sq-start-btn {
   width: 100%;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   border-radius: 32px;
   padding: 22px;
   text-align: center;
@@ -108,7 +108,7 @@
 .sq-progress-label {
   font-size: 16px;
   font-weight: 600;
-  color: #E11D48;
+  color: #6C5CE7;
 }
 
 .sq-progress-pct {
@@ -126,7 +126,7 @@
 
 .sq-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E11D48, #F43F5E);
+  background: linear-gradient(90deg, #6C5CE7, #A29BFE);
   border-radius: 10px;
   transition: width 0.3s ease;
 }
@@ -143,7 +143,7 @@
 
 .sq-question-number {
   display: inline-block;
-  background: linear-gradient(135deg, #FFF1F2, #FFE8E0);
+  background: linear-gradient(135deg, #EDEDF7, #DDD6FE);
   border-radius: 14px;
   padding: 8px 18px;
   margin-bottom: 22px;
@@ -152,7 +152,7 @@
 .sq-question-num-text {
   font-size: 14px;
   font-weight: 700;
-  color: #E11D48;
+  color: #6C5CE7;
 }
 
 .sq-question-scene {
@@ -182,8 +182,8 @@
 }
 
 .sq-option-item:active {
-  border-color: #E11D48;
-  background: #FFF5F3;
+  border-color: #6C5CE7;
+  background: #F5F5FA;
   transform: scale(0.98);
 }
 
@@ -192,7 +192,7 @@
   height: 40px;
   min-width: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #FFF1F2, #FFE0D8);
+  background: linear-gradient(135deg, #EDEDF7, #DDD6FE);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,7 +201,7 @@
 .sq-option-letter-text {
   font-size: 15px;
   font-weight: 700;
-  color: #E11D48;
+  color: #6C5CE7;
 }
 
 .sq-option-text {
@@ -223,7 +223,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,7 +258,7 @@
 .sq-result-score {
   font-size: 44px;
   font-weight: 800;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -313,8 +313,8 @@
 }
 
 .sq-style-opt-active {
-  border-color: #E11D48;
-  background: #FFF5F3;
+  border-color: #6C5CE7;
+  background: #F5F5FA;
   box-shadow: 0 4px 14px rgba(225, 29, 72, 0.15);
 }
 
@@ -343,7 +343,7 @@
 
 .sq-btn-restart {
   flex: 2;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
   border-radius: 32px;
   padding: 20px;
   text-align: center;

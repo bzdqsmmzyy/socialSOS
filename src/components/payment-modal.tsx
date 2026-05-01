@@ -12,11 +12,11 @@ export default function PaymentModal({ open, onClose }: PaymentModalProps) {
   const { isPaid, setShowPaymentModal } = useQuizStore()
 
   const features = [
-    { icon: Check, text: "全部 200+ 社交场景题库", color: "#22C55E" },
-    { icon: Infinity, text: "无限次练习，不限次数", color: "#E11D48" },
-    { icon: FolderOpen, text: "6大场景分类浏览", color: "#F59E0B" },
-    { icon: Star, text: "收藏功能，随时复习", color: "#E11D48" },
-    { icon: Sparkles, text: "永久免费更新新题目", color: "#8B5CF6" }
+    { icon: Check, text: "全部 200+ 社交场景题库", color: "#4CD964" },
+    { icon: Infinity, text: "无限次练习，不限次数", color: "#6C5CE7" },
+    { icon: FolderOpen, text: "6大场景分类浏览", color: "#FF9F43" },
+    { icon: Star, text: "收藏功能，随时复习", color: "#6C5CE7" },
+    { icon: Sparkles, text: "永久免费更新新题目", color: "#A29BFE" }
   ]
 
   const handleUnlock = () => {
@@ -45,7 +45,7 @@ export default function PaymentModal({ open, onClose }: PaymentModalProps) {
         </View>
 
         <View className="px-6 pb-2 flex flex-col items-center">
-          <Text className="block text-3xl font-bold" style={{ color: '#E11D48' }}>¥19.9</Text>
+          <Text className="block text-3xl font-bold" style={{ color: '#6C5CE7' }}>¥19.9</Text>
           <Text className="block text-xs text-gray-400 mt-1">一杯奶茶钱，告别社交焦虑</Text>
         </View>
 

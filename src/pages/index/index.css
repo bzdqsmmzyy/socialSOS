@@ -1,625 +1,328 @@
-/* ==================== PAGE CONTAINER ==================== */
+/* ======================================================
+   社交急救包 - 首页样式
+   参考设计: 浅灰底 #F5F5F5 / 纯白卡 / 圆角16px / 渐变紫按钮
+   ====================================================== */
+
 .page-container {
   min-height: 100vh;
-  background: #FFF8F6;
-  padding-bottom: env(safe-area-inset-bottom);
+  background-color: #F5F5F5;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* ==================== HEADER V2 ==================== */
-.h-header-v2 {
-  background: linear-gradient(145deg, #E11D48 0%, #F43F5E 40%, #FB7185 100%);
-  padding: 20px 24px 36px;
-  border-radius: 0 0 32px 32px;
+/* ==================== HEADER ==================== */
+.h-header {
+  background: linear-gradient(135deg, #7B68EE, #9B59B6);
+  padding: 0 20px 24px 20px;
+  border-radius: 0 0 28px 28px;
   position: relative;
   overflow: hidden;
 }
 
-.h-header-v2::before {
+.h-header::after {
   content: '';
   position: absolute;
-  top: -50px;
+  top: -60px;
   right: -40px;
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.h-header-v2::after {
+.h-header::before {
   content: '';
   position: absolute;
-  bottom: -20px;
-  left: -30px;
+  bottom: -30px;
+  left: -20px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-/* Top row */
 .h-header-top {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 24px;
-  position: relative;
-  z-index: 1;
+}
+
+.h-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.h-sos-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
 }
 
 .h-header-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: 2px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 1px;
 }
 
-/* Character avatar chip */
-.h-avatar-chip {
+.h-avatar-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 28px;
-  padding: 8px 18px 8px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(12px);
-  transition: transform 0.2s;
-}
-
-.h-avatar-chip:active {
-  transform: scale(0.96);
 }
 
 .h-avatar-circle {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
-/* XP bar section */
-.h-xp-section {
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 1;
-}
-
-.h-xp-label-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.h-xp-track {
-  height: 12px;
-  background: rgba(255, 255, 255, 0.22);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.h-xp-fill {
-  height: 100%;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #FCD34D, #FBBF24);
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 8px rgba(252, 211, 77, 0.5);
-}
-
-/* Rank badge */
-.h-rank-badge-wrap {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-.h-rank-chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
-  border-radius: 24px;
-  border-width: 1px;
-  border-style: solid;
-  backdrop-filter: blur(10px);
-}
-
-/* Header bottom stats */
+/* Stats row */
 .h-header-stats {
   display: flex;
-  gap: 12px;
-  position: relative;
-  z-index: 1;
+  flex-direction: row;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 18px 12px;
+  backdrop-filter: blur(10px);
 }
 
 .h-header-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   flex: 1;
-  background: rgba(255, 255, 255, 0.16);
-  border-radius: 18px;
-  padding: 20px 10px;
-  text-align: center;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: transform 0.2s;
-}
-
-.h-header-stat:active {
-  transform: scale(0.97);
 }
 
 .h-stat-num {
   font-size: 22px;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+  color: #FFFFFF;
 }
 
 .h-stat-label {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 4px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
 }
 
-/* ==================== CATEGORY TAGS V2 ==================== */
-.h-tags-v2 {
-  padding: 20px 0 12px;
+/* ==================== CATEGORY TAGS ==================== */
+.h-tags-section {
+  padding: 16px 0 8px 0;
+  background-color: #F5F5F5;
 }
 
 .h-tags-scroll {
+  width: 100%;
   white-space: nowrap;
-  display: flex;
-  flex-direction: row;
 }
 
 .h-tags-inner {
   display: flex;
   flex-direction: row;
-  padding: 0 24px 0 24px;
+  padding: 0 20px;
+  gap: 10px;
 }
 
 .h-tag-chip {
-  display: inline-flex;
+  padding: 10px 18px;
+  border-radius: 24px;
+  background-color: #FFFFFF;
   flex-shrink: 0;
-  padding: 14px 26px;
-  border-radius: 28px;
-  font-size: 14px;
-  font-weight: 600;
-  background: #ffffff;
-  border: 1.5px solid #F3E8E8;
-  margin-right: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
-  color: #6B5B5B;
-}
-
-.h-tag-chip:active {
-  transform: scale(0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
 }
 
 .h-tag-chip-active {
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
-  border-color: transparent;
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(225, 29, 72, 0.35);
-  transform: translateY(-1px);
-}
-
-/* ==================== DAILY CHALLENGE CARD ==================== */
-.h-daily-card {
-  margin: 10px 24px 20px;
-  background: #ffffff;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 4px 24px rgba(225, 29, 72, 0.08), 0 1px 4px rgba(0, 0, 0, 0.03);
-  border: 1.5px solid rgba(225, 29, 72, 0.12);
-  transition: transform 0.25s, box-shadow 0.25s;
-  position: relative;
-}
-
-.h-daily-card:active {
-  transform: scale(0.98);
-}
-
-.h-daily-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, #E11D48, #F43F5E, #FB7185, #FDA4AF);
-  border-radius: 24px 24px 0 0;
-}
-
-.h-daily-badge {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 28px 24px 0;
-}
-
-.h-daily-body {
-  padding: 22px 24px 26px;
-}
-
-.h-daily-action {
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
-  padding: 22px 24px;
-  text-align: center;
-  box-shadow: 0 -2px 10px rgba(225, 29, 72, 0.12);
+  background: linear-gradient(135deg, #7B68EE, #9B59B6);
+  box-shadow: 0 4px 12px rgba(123, 104, 238, 0.35);
 }
 
 /* ==================== QUIZ SECTION ==================== */
 .h-quiz-section {
-  margin-top: 4px;
+  padding: 8px 20px 0 20px;
 }
 
-/* Badge row above quiz engine */
 .h-card-badge-row {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
-  padding: 18px 28px 0;
-  font-size: 11px;
-}
-
-/* ===== Quiz Card (inherited from V1) ===== */
-.h-card {
-  margin: 14px 24px;
-  background: #ffffff;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-  border: 1.5px solid rgba(225, 29, 72, 0.1);
-}
-
-.h-card-badge {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 22px 24px 0;
-  font-size: 11px;
-  color: #aaa;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .h-hot-tag {
-  background: #FFF1F2;
-  color: #E11D48;
-  padding: 6px 16px;
-  border-radius: 16px;
-  font-weight: 600;
-  font-size: 12px;
+  background-color: #FFF0F0;
+  padding: 6px 12px;
+  border-radius: 8px;
 }
 
-.h-card-scene {
-  padding: 18px 24px 26px;
-  font-size: 17px;
-  color: #1a1a1a;
-  line-height: 1.9;
-  font-weight: 500;
-}
-
-.h-card-hint {
-  padding: 0 24px 22px;
-  font-size: 12px;
-  color: #ccc;
-  text-align: center;
-}
-
-/* Start Button */
-.h-start {
-  display: block;
-  margin: 8px 24px 22px;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
-  color: #fff;
-  border-radius: 28px;
-  padding: 22px;
-  font-size: 17px;
-  font-weight: 700;
-  text-align: center;
-  box-shadow: 0 6px 24px rgba(225, 29, 72, 0.35);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.h-start:active {
-  transform: scale(0.97);
-  box-shadow: 0 2px 12px rgba(225, 29, 72, 0.25);
-}
-
-/* ===== Options ===== */
-.h-options {
-  padding: 8px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.h-opt {
-  background: #FAFAFA;
-  border: 2px solid #F0F0F2;
-  border-radius: 18px;
-  padding: 22px 20px;
-  font-size: 15px;
-  color: #1a1a1a;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  line-height: 1.7;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.h-opt:active {
-  transform: scale(0.98);
-}
-
-.h-opt-locked {
-  pointer-events: none;
-  opacity: 0.88;
-}
-
-.h-opt-correct {
-  border-color: #22C55E;
-  background: linear-gradient(135deg, #F0FFF4, #DCFCE7);
-  box-shadow: 0 2px 14px rgba(34, 197, 94, 0.15);
-}
-
-.h-opt-wrong {
-  border-color: #E11D48;
-  background: linear-gradient(135deg, #FFF1F2, #FFE4E6);
-  box-shadow: 0 2px 14px rgba(225, 29, 72, 0.15);
-}
-
-.h-letter {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #F0F0F2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  flex-shrink: 0;
-  transition: all 0.25s;
-  color: #999;
-}
-
-.h-letter-correct {
-  background: #22C55E;
-  color: #fff;
-  box-shadow: 0 2px 10px rgba(34, 197, 94, 0.35);
-}
-
-.h-letter-wrong {
-  background: #E11D48;
-  color: #fff;
-  box-shadow: 0 2px 10px rgba(225, 29, 72, 0.35);
-}
-
-/* ===== Result Area ===== */
-.h-result {
-  padding: 6px 22px 22px;
-}
-
-.h-result-card {
-  background: linear-gradient(135deg, #F0FFF4, #DCFCE7);
-  border: 1.5px solid rgba(34, 197, 94, 0.25);
-  border-radius: 20px;
-  padding: 28px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 14px rgba(34, 197, 94, 0.08);
-}
-
-.h-result-answer {
-  font-size: 16px;
-  color: #1a1a1a;
-  line-height: 1.8;
-  font-weight: 500;
-  padding: 8px 0;
-}
-
-.h-result-tag {
-  display: inline-block;
-  background: #DCFCE7;
-  color: #15803D;
-  font-size: 12px;
-  padding: 8px 18px;
-  border-radius: 18px;
-  margin-top: 14px;
-  font-weight: 600;
-}
-
-.h-tips {
-  background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  border-radius: 20px;
-  padding: 22px 24px;
-  margin-bottom: 16px;
-}
-
-.h-actions {
-  display: flex;
-  gap: 14px;
-}
-
-.h-btn-copy {
-  flex: 1;
-  background: #fff;
-  color: #E11D48;
-  border: 2px solid #E11D48;
-  border-radius: 28px;
-  padding: 22px;
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.2s;
-}
-
-.h-btn-copy:active {
-  background: #FFF1F2;
-  transform: scale(0.97);
-}
-
-.h-btn-next {
-  flex: 2;
-  background: linear-gradient(135deg, #E11D48, #F43F5E);
-  color: #fff;
-  border-radius: 28px;
-  padding: 22px;
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-  box-shadow: 0 4px 18px rgba(225, 29, 72, 0.3);
-  transition: all 0.2s;
-}
-
-.h-btn-next:active {
-  transform: scale(0.97);
-  box-shadow: 0 2px 10px rgba(225, 29, 72, 0.2);
-}
-
-/* ==================== SERIES / MICRO-DRAMA SECTION ==================== */
+/* ==================== SERIES SECTION ==================== */
 .h-series-section {
-  margin: 24px 0 16px;
-  padding: 0 24px 0 24px;
+  padding: 24px 0 0 0;
 }
 
-.h-section-title {
-  margin-bottom: 16px;
+.h-section-header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+  padding: 0 20px;
+  margin-bottom: 14px;
 }
 
 .h-series-scroll {
+  width: 100%;
   white-space: nowrap;
+}
+
+.h-series-inner {
   display: flex;
   flex-direction: row;
-  margin: 0 -24px;
-  padding: 0 24px 8px 24px;
+  padding: 0 20px;
+  gap: 14px;
 }
 
 .h-series-card {
-  display: inline-flex;
-  flex-direction: column;
-  flex-shrink: 0;
   width: 180px;
-  min-height: 170px;
-  margin-right: 14px;
-  background: #ffffff;
-  border-radius: 22px;
-  padding: 22px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  border: 1.5px solid #F3E8E8;
-  transition: transform 0.25s, box-shadow 0.25s;
-  overflow: hidden;
-}
-
-.h-series-card:active {
-  transform: scale(0.97);
+  flex-shrink: 0;
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .h-series-card-header {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: 8px;
-  min-height: 28px;
-}
-
-.h-series-card-header Text:first-child {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-right: 8px;
 }
 
 .h-series-progress {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  margin-top: auto;
 }
 
 .h-series-track {
   flex: 1;
-  height: 8px;
-  background: #F5F0F0;
-  border-radius: 4px;
+  height: 6px;
+  background-color: #EDE7F6;
+  border-radius: 3px;
   overflow: hidden;
 }
 
 .h-series-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E11D48, #FB7185);
-  border-radius: 4px;
-  transition: width 0.4s ease;
+  background: linear-gradient(90deg, #7B68EE, #9B59B6);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* ==================== UNLOCK BANNER ==================== */
+.h-unlock {
+  margin: 20px 20px 0 20px;
+  background: linear-gradient(135deg, #7B68EE, #9B59B6);
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 20px rgba(123, 104, 238, 0.3);
+}
+
+.h-unlock-content {
+  flex: 1;
+}
+
+.h-unlock-price {
+  background-color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: 24px;
+  flex-shrink: 0;
 }
 
 /* ==================== BOTTOM STATS ==================== */
 .h-bottom-stats {
-  margin: 14px 24px 18px;
-  background: #ffffff;
-  border-radius: 22px;
-  padding: 28px 24px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.03);
-  border: 1.5px solid #F3E8E8;
+  margin: 20px 20px 0 20px;
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  padding: 22px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .h-bottom-stats-row {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
 }
 
 .h-bs-item {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .h-bs-divider {
   width: 1px;
   height: 36px;
-  background: #F3E8E8;
+  background-color: #EDE7F6;
 }
 
-/* ==================== UNLOCK BANNER ==================== */
-.h-unlock {
-  margin: 18px 24px 24px;
-  background: linear-gradient(135deg, #E11D48 0%, #F43F5E 50%, #FB7185 100%);
-  border-radius: 22px;
-  padding: 30px 26px;
-  color: #fff;
+/* ==================== DAILY CARD (unused but keep) ==================== */
+.h-daily-card {
+  margin: 0 20px 0 20px;
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  padding: 20px 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.h-daily-badge {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 8px 28px rgba(225, 29, 72, 0.25);
-  transition: transform 0.2s;
+  margin-bottom: 12px;
 }
 
-.h-unlock:active {
+.h-daily-body {
+  margin-bottom: 16px;
+}
+
+.h-daily-action {
+  background: linear-gradient(135deg, #7B68EE, #9B59B6);
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==================== ACTIVE EFFECTS ==================== */
+.h-tag-chip:active,
+.h-series-card:active,
+.h-unlock:active,
+.h-daily-card:active,
+.h-daily-action:active {
+  opacity: 0.85;
   transform: scale(0.98);
-}
-
-.h-unlock-price {
-  background: #fff;
-  color: #E11D48;
-  font-weight: 800;
-  font-size: 14px;
-  padding: 10px 20px;
-  border-radius: 24px;
-  white-space: nowrap;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* ==================== BOTTOM SPACING ==================== */
-.h-bottom-space {
-  height: 100px;
 }
