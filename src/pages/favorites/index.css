@@ -1,0 +1,87 @@
+/* ===== Favorites Page ===== */
+.fav-page {
+  min-height: 100vh;
+  background: #F5F5F7;
+}
+
+/* Header */
+.fav-header {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  padding: 50px 20px 24px;
+  text-align: center;
+  border-radius: 0 0 24px 24px;
+}
+
+.fav-header-badge {
+  display: inline-block;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 4px 16px;
+}
+
+/* Empty state */
+.fav-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+/* List */
+.fav-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Card */
+.fav-card {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+  transition: transform 0.15s;
+}
+
+.fav-card:active {
+  transform: scale(0.98);
+}
+
+.fav-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fav-cat-tag {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  border-radius: 12px;
+  padding: 3px 12px;
+  display: inline-block;
+}
+
+.fav-tech {
+  background: #F0FFF4;
+  border-radius: 10px;
+  padding: 6px 12px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.fav-unfav {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #FFF5F5;
+  margin-top: 4px;
+}
+
+/* Bottom spacing */
+.fav-bottom {
+  height: 60px;
+}

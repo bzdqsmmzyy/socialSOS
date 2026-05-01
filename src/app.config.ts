@@ -1,6 +1,12 @@
 export default defineAppConfig({
   pages: [
+    'pages/character/index',
     'pages/index/index',
+    'pages/quiz/index',
+    'pages/series/index',
+    'pages/settings/index',
+    'pages/favorites/index',
+    'pages/cheatsheets/index',
     'pages/profile/index'
   ],
   window: {

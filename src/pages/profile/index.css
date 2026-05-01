@@ -1,76 +1,333 @@
+/* ===== Page ===== */
 .p-page {
   min-height: 100vh;
-  background: #f5f5f7;
+  background: #F5F5F7;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Header */
+/* ===== Header ===== */
 .p-header {
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-  padding: 28px 20px 20px;
-  text-align: center;
-  color: #fff;
+  background: linear-gradient(160deg, #FF6B6B 0%, #F48B6D 35%, #FFAA5C 100%);
+  padding: 56px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0 0 28px 28px;
+  position: relative;
+  overflow: visible;
 }
 
-.p-avatar {
-  width: 56px;
-  height: 56px;
+/* Decorative dots in header */
+.p-header::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transform: rotate(25deg);
+}
+
+.p-header::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 28px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  transform: rotate(-15deg);
+}
+
+/* Character circle */
+.p-char-circle {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  border: 3px solid rgba(255, 255, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-.p-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 3px 12px;
-  border-radius: 12px;
-  font-size: 11px;
-  margin-top: 6px;
+.p-char-circle:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Stats */
-.p-stats {
+.p-char-hint {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rank badge */
+.p-rank-badge {
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 6px 18px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s;
+}
+
+.p-rank-badge:active {
+  transform: scale(0.97);
+}
+
+/* ===== Character Switcher Sheet ===== */
+.p-char-sheet {
+  width: calc(100% - 32px);
+  margin-top: 18px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px 16px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 2;
+  animation: pSheetIn 0.25s ease-out;
+}
+
+@keyframes pSheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.p-char-card {
+  width: calc(50% - 8px);
+  background: #FAFAFA;
+  border: 2px solid #F0F0F0;
+  border-radius: 16px;
+  padding: 14px 10px;
   display: flex;
-  gap: 1px;
-  margin: -10px 16px 14px;
-  background: #e5e5ea;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: all 0.2s;
 }
 
-.p-stat {
-  flex: 1;
-  background: #fff;
+.p-char-card:active {
+  transform: scale(0.97);
+  background: #F5F5F5;
+}
+
+.p-char-card-active {
+  border-color: #FF6B6B;
+  background: linear-gradient(135deg, #FFF5F5, #FFEEED);
+  box-shadow: 0 2px 12px rgba(255, 107, 107, 0.15);
+}
+
+.p-char-check {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 2px 10px;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.p-char-close {
   text-align: center;
-  padding: 14px 6px;
+  padding: 8px;
 }
 
-/* Menu */
-.p-menu {
-  padding: 0 16px 88px;
+.p-char-close:active {
+  opacity: 0.6;
 }
 
-.p-item {
+/* ===== XP Progress Section ===== */
+.p-progress-section {
+  margin: -12px 16px 14px;
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 18px 18px 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 1;
+}
+
+.p-xp-label {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.p-progress-bar {
+  margin-top: 4px;
+}
+
+.p-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.p-progress-track {
+  width: 100%;
+  height: 10px;
+  background: #F0F0F2;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Track texture */
+.p-progress-track::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    rgba(255, 255, 255, 0.22) 4px,
+    rgba(255, 255, 255, 0.22) 5px
+  );
+  border-radius: 6px;
+}
+
+.p-progress-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+  position: relative;
+  z-index: 0;
+  min-width: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.p-progress-pct {
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* ===== Stats Grid ===== */
+.p-stats-grid {
+  margin: 0 16px 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.p-stat-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s;
+}
+
+.p-stat-card:active {
+  transform: scale(0.98);
+}
+
+.p-stat-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 15px;
-  border-bottom: 0.5px solid #f0f0f0;
+  justify-content: center;
 }
 
-.p-item-new {
-  background: #FFF0F0;
-  padding: 2px 8px;
-  border-radius: 8px;
+.p-stat-icon-practice {
+  background: linear-gradient(135deg, #FFF0F0, #FFE5E6);
 }
 
-.p-item-badge-count {
-  background: #FF3B30;
-  padding: 1px 6px;
-  border-radius: 8px;
+.p-stat-icon-fav {
+  background: linear-gradient(135deg, #FFF9E6, #FFF3CC);
+}
+
+.p-stat-icon-acc {
+  background: linear-gradient(135deg, #F0FFF4, #E8F8EC);
+}
+
+.p-stat-icon-streak {
+  background: linear-gradient(135deg, #FFF0F6, #FFE5EF);
+}
+
+/* ===== Menu Section ===== */
+.p-menu-section {
+  margin: 0 16px;
+}
+
+.p-menu-card {
+  background: #FFFFFF;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.p-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 18px;
+  border-bottom: 0.5px solid #F0F0F2;
+  transition: background 0.15s;
+}
+
+.p-menu-item:active {
+  background: #FAFAFB;
+}
+
+.p-menu-item-last {
+  border-bottom: none;
+}
+
+.p-menu-icon {
+  width: 36px;
+  height: 36px;
+  background: #FAFAFB;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-menu-badge {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  border-radius: 10px;
+  padding: 2px 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.p-menu-badge-dim {
+  background: #D1D5DB;
+}
+
+/* ===== Bottom Spacing ===== */
+.p-bottom-space {
+  height: 100px;
+}
+
+/* ===== Utility ===== */
+.text-xxs {
+  font-size: 10px;
 }

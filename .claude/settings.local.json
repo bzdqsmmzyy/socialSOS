@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(superpowers:brainstorming)",
+      "Bash(ls:*)",
+      "Bash(pnpm validate:*)",
+      "Bash(cat:*)",
+      "Bash(npx pnpm validate:*)",
+      "Bash(npx pnpm:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

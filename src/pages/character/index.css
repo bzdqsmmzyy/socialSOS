@@ -1,0 +1,300 @@
+/* ===== Character Selection Page ===== */
+
+.c-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF5F5 0%, #F5F5F7 60%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  padding-bottom: 40px;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+/* ===== Header ===== */
+.c-header {
+  width: 100%;
+  padding: 56px 0 8px;
+  text-align: center;
+}
+
+.c-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FF6B6B;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.c-title {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.c-subtitle {
+  font-size: 14px;
+  color: #999;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ===== Character Cards List ===== */
+.c-list {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.c-card {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.c-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  pointer-events: none;
+}
+
+.c-card-selected {
+  border-color: #FF6B6B;
+  background: linear-gradient(135deg, #FFF5F5, #FFEEED);
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.18);
+}
+
+.c-card-selected::before {
+  opacity: 1;
+}
+
+/* Checkmark badge */
+.c-checkmark {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  border-radius: 0 20px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+  animation: c-pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes c-pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Emoji avatar circle */
+.c-emoji {
+  width: 62px;
+  height: 62px;
+  min-width: 62px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.28s ease;
+}
+
+.c-emoji-idle {
+  background: #F5F5F7;
+}
+
+.c-emoji-selected {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.3);
+  transform: scale(1.06);
+}
+
+.c-emoji-text {
+  font-size: 30px;
+  line-height: 1;
+}
+
+/* Text area */
+.c-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.c-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.c-name-selected {
+  color: #FF3B30;
+}
+
+.c-desc {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.c-desc-selected {
+  color: #888;
+}
+
+/* Card arrow hint */
+.c-arrow {
+  color: #ccc;
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: all 0.28s ease;
+}
+
+.c-arrow-selected {
+  color: #FF6B6B;
+}
+
+/* ===== Confirm Button ===== */
+.c-btn-wrap {
+  width: 100%;
+  padding: 0 4px;
+}
+
+.c-btn {
+  width: 100%;
+  padding: 16px 0;
+  border-radius: 28px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.c-btn-active {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.35);
+}
+
+.c-btn-active:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.25);
+}
+
+.c-btn-disabled {
+  background: #E5E5EA;
+  color: #B0B0B0;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* ===== Animations ===== */
+.c-card-enter {
+  animation: c-slide-up 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.c-card-enter:nth-child(1) { animation-delay: 0s; }
+.c-card-enter:nth-child(2) { animation-delay: 0.08s; }
+.c-card-enter:nth-child(3) { animation-delay: 0.16s; }
+.c-card-enter:nth-child(4) { animation-delay: 0.24s; }
+
+@keyframes c-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating particles decoration */
+.c-bg-deco {
+  position: fixed;
+  pointer-events: none;
+  overflow: hidden;
+  inset: 0;
+  z-index: 0;
+}
+
+.c-bg-deco-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 107, 107, 0.08);
+  animation: c-float 6s ease-in-out infinite;
+}
+
+.c-bg-deco-dot:nth-child(1) {
+  width: 80px;
+  height: 80px;
+  top: 12%;
+  left: -24px;
+  animation-delay: 0s;
+}
+
+.c-bg-deco-dot:nth-child(2) {
+  width: 120px;
+  height: 120px;
+  top: 28%;
+  right: -40px;
+  animation-delay: 2s;
+}
+
+.c-bg-deco-dot:nth-child(3) {
+  width: 60px;
+  height: 60px;
+  top: 62%;
+  left: 10%;
+  animation-delay: 4s;
+}
+
+@keyframes c-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.15);
+    opacity: 1;
+  }
+}

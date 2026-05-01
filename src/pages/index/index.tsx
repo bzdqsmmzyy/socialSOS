@@ -1,225 +1,259 @@
-import { View, Text } from "@tarojs/components"
+import { View, Text, ScrollView } from "@tarojs/components"
 import Taro from "@tarojs/taro"
-import { useQuizStore, CATEGORIES } from "@/store/quiz-store"
+import { useQuizStore, CATEGORIES, CHARACTERS, getRank } from "@/store/quiz-store"
 import PaymentModal from "@/components/payment-modal"
-import { useEffect, useRef } from "react"
+import QuizEngine from "@/components/quiz-engine"
 import "./index.css"
 
 export default function Index() {
   const {
-    userStats, showPaymentModal, setShowPaymentModal,
+    character, totalXP, rankProgress,
+    userStats, streakDays, answeredQuestions, correctCount,
     currentCategoryFilter, setCurrentCategoryFilter,
-    currentQuestionIndex, quizPhase, selectedOption,
-    startQuiz, selectOption, nextQuestion,
-    getFilteredQuestions, canAnswer, getRemainingFreeCount,
-    isPaid
+    currentQuestionIndex,
+    getFilteredQuestions,
+    getDailyChallenge, seriesList, seriesProgress,
+    isPaid, showPaymentModal, setShowPaymentModal,
+    getRemainingFreeCount
   } = useQuizStore()
-
-  const resultRef = useRef<any>(null)
 
   const filteredQuestions = getFilteredQuestions()
   const currentQuestion = filteredQuestions[currentQuestionIndex] || filteredQuestions[0]
+  const dailyChallenge = getDailyChallenge()
   const remainingFree = getRemainingFreeCount()
 
-  useEffect(() => {
-    if (quizPhase === 'revealed' && resultRef.current) {
+  // ---- Derived gamification data ----
+  const currentChar = CHARACTERS.find(c => c.id === character) || CHARACTERS[0]
+  const rankInfo = getRank(totalXP)
+  const currentRank = rankInfo.rank
+  const totalAnswered = Object.keys(answeredQuestions).length
+  const displayStats = {
+    practiced: totalAnswered || userStats.practiced || 0,
+    streak: streakDays || 0,
+    accuracy: totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0
+  }
+
+  // ---- Handlers ----
+  const handleDailyChallenge = () => {
+    const challenge = getDailyChallenge()
+    if (!challenge) return
+    const allQuestions = useQuizStore.getState().questions
+    const idx = allQuestions.findIndex(q => q.id === challenge.id)
+    if (idx >= 0) {
+      setCurrentCategoryFilter(0)
+      useQuizStore.setState({ currentQuestionIndex: idx })
       setTimeout(() => {
-        if (resultRef.current) {
-          resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-      }, 400)
+        Taro.pageScrollTo({ selector: '.h-quiz-section', duration: 300 })
+      }, 100)
     }
-  }, [quizPhase])
-
-  const handleStartQuiz = () => {
-    startQuiz()
   }
 
-  const handleSelectOption = (optionIndex: number) => {
-    if (!canAnswer()) {
-      setShowPaymentModal(true)
-      return
-    }
-    selectOption(optionIndex)
-  }
-
-  const handleNext = () => {
+  const handleQuizNext = () => {
     if (!isPaid && remainingFree <= 0) {
       setShowPaymentModal(true)
       return
     }
-    nextQuestion()
+    useQuizStore.getState().nextQuestion()
     setTimeout(() => {
-      Taro.pageScrollTo({ selector: '.h-card', duration: 300 })
+      Taro.pageScrollTo({ selector: '.h-quiz-section', duration: 300 })
     }, 100)
   }
 
-  const handleCopyAnswer = () => {
-    if (!currentQuestion) return
-    Taro.setClipboardData({ data: currentQuestion.bestAnswer })
-  }
-
-  const getOptionClass = (idx: number) => {
-    if (quizPhase !== 'revealed' || selectedOption === null) return 'h-opt'
-    const isCorrect = idx === currentQuestion.correctIndex
-    const isSelected = idx === selectedOption
-    let cls = 'h-opt'
-    if (isCorrect) cls += ' h-opt-correct'
-    if (isSelected && !isCorrect) cls += ' h-opt-wrong'
-    if (quizPhase === 'revealed') cls += ' h-opt-locked'
-    return cls
-  }
-
-  const getLetterClass = (idx: number) => {
-    if (quizPhase !== 'revealed' || selectedOption === null) return 'h-letter'
-    const isCorrect = idx === currentQuestion.correctIndex
-    const isSelected = idx === selectedOption
-    let cls = 'h-letter'
-    if (isCorrect) cls += ' h-letter-correct'
-    if (isSelected && !isCorrect) cls += ' h-letter-wrong'
-    return cls
-  }
-
-  const displayStats = {
-    practiced: userStats.practiced || 28,
-    streak: userStats.streak || 7,
-    accuracy: userStats.accuracy || 85,
-    favorites: userStats.favorites || 5
+  // ---- Series card helpers ----
+  const getSeriesUnlocked = (seriesId: string) => seriesProgress[seriesId] || 0
+  const getSeriesTotal = (seriesId: string) => {
+    const s = seriesList.find(item => item.id === seriesId)
+    return s ? s.episodes.length : 5
   }
 
   return (
     <View className="page-container">
-      {/* ===== Header ===== */}
-      <View className="h-header">
-        <View className="h-row">
-          <Text className="h-title">🆘 社交急救包</Text>
-          <View className="h-avatar">
-            <Text className="block text-base">🧑</Text>
+      {/* ==================== HEADER ==================== */}
+      <View className="h-header-v2">
+        {/* Top row: Title + Character Avatar */}
+        <View className="h-header-top">
+          <Text className="h-header-title block">社交急救包</Text>
+          <View className="h-avatar-chip">
+            <View className="h-avatar-circle">
+              <Text className="block text-sm">{currentChar.emoji}</Text>
+            </View>
+            <Text className="block text-xs text-white font-medium">{currentChar.name}</Text>
           </View>
         </View>
-        <View className="h-stats">
-          <View className="h-stat">
-            <Text className="stat-num block">{displayStats.practiced}</Text>
-            <Text className="stat-label block">已练习</Text>
+
+        {/* XP Bar */}
+        <View className="h-xp-section">
+          <View className="h-xp-label-row">
+            <Text className="block text-xs text-white" style={{ opacity: 0.9 }}>社交能量值</Text>
+            <Text className="block text-xs text-white font-bold">{totalXP}</Text>
           </View>
-          <View className="h-stat">
-            <Text className="stat-num block">🔥{displayStats.streak}天</Text>
-            <Text className="stat-label block">连续打卡</Text>
+          <View className="h-xp-track">
+            <View
+              className="h-xp-fill"
+              style={{ width: `${rankProgress}%`, backgroundColor: currentRank.color }}
+            />
           </View>
-          <View className="h-stat">
-            <Text className="stat-num block">{displayStats.accuracy}%</Text>
-            <Text className="stat-label block">正确率</Text>
+        </View>
+
+        {/* Rank Badge */}
+        <View className="h-rank-badge-wrap">
+          <View className="h-rank-chip" style={{ backgroundColor: currentRank.color + '20', borderColor: currentRank.color + '40' }}>
+            <Text className="block text-base">{currentRank.icon}</Text>
+            <Text className="block text-xs font-semibold" style={{ color: currentRank.color }}>{currentRank.name}</Text>
+          </View>
+        </View>
+
+        {/* Bottom Stats Row */}
+        <View className="h-header-stats">
+          <View className="h-header-stat">
+            <Text className="h-stat-num block">{displayStats.practiced}</Text>
+            <Text className="h-stat-label block">已练习</Text>
+          </View>
+          <View className="h-header-stat">
+            <Text className="h-stat-num block">🔥{displayStats.streak}天</Text>
+            <Text className="h-stat-label block">连续打卡</Text>
+          </View>
+          <View className="h-header-stat">
+            <Text className="h-stat-num block">{displayStats.accuracy}%</Text>
+            <Text className="h-stat-label block">正确率</Text>
           </View>
         </View>
       </View>
 
-      {/* ===== Category Tags ===== */}
-      <View className="h-tags">
-        {CATEGORIES.map((cat) => (
-          <View
-            key={cat.id}
-            className={`h-tag ${currentCategoryFilter === cat.id ? 'h-tag-active' : ''}`}
-            onClick={() => setCurrentCategoryFilter(cat.id)}
-          >
-            <Text className={`block text-sm font-medium ${currentCategoryFilter === cat.id ? 'text-white' : 'text-gray-500'}`}>
-              {cat.tag}
+      {/* ==================== CATEGORY TAGS ==================== */}
+      <View className="h-tags-v2">
+        <ScrollView scrollX enhanced showScrollbar={false} className="h-tags-scroll">
+          {CATEGORIES.map((cat) => {
+            const isActive = currentCategoryFilter === cat.id
+            return (
+              <View
+                key={cat.id}
+                className={`h-tag-chip ${isActive ? 'h-tag-chip-active' : ''}`}
+                onClick={() => setCurrentCategoryFilter(cat.id)}
+              >
+                <Text className={`block text-xs font-semibold ${isActive ? 'text-white' : 'text-gray-600'}`}>
+                  {cat.tag}
+                </Text>
+              </View>
+            )
+          })}
+        </ScrollView>
+      </View>
+
+      {/* ==================== DAILY CHALLENGE CARD ==================== */}
+      {dailyChallenge && (
+        <View className="h-daily-card" onClick={handleDailyChallenge}>
+          <View className="h-daily-badge">
+            <Text className="block text-xs font-bold" style={{ color: '#FF6B6B' }}>🔥 今日社死挑战</Text>
+            <View className="flex flex-row items-center gap-1">
+              <Text className="block text-xs text-orange-400">{'⭐'.repeat(dailyChallenge.difficulty)}</Text>
+              <Text className="block text-xs text-gray-400">{dailyChallenge.categoryTag}</Text>
+            </View>
+          </View>
+          <View className="h-daily-body">
+            <Text className="block text-sm text-gray-800 leading-relaxed">
+              {dailyChallenge.sceneFull ? dailyChallenge.sceneFull.split('\n')[0] : dailyChallenge.scene}
             </Text>
           </View>
-        ))}
-      </View>
+          <View className="h-daily-action">
+            <Text className="block text-sm font-semibold text-white">点击挑战 →</Text>
+          </View>
+        </View>
+      )}
 
-      {/* ===== Quiz Card ===== */}
+      {/* ==================== QUIZ SECTION ==================== */}
       {currentQuestion && (
-        <View className="h-card">
-          <View className="h-card-badge">
+        <View className="h-quiz-section">
+          {/* Category + difficulty badge */}
+          <View className="h-card-badge-row">
             <View className="h-hot-tag">
-              <Text className="block text-xs font-semibold">🔥 今日推荐</Text>
+              <Text className="block text-xs font-semibold">
+                {currentQuestion.id === dailyChallenge?.id ? '🔥 今日社死挑战' : '🔥 今日推荐'}
+              </Text>
             </View>
             <Text className="block text-xs text-gray-400">{currentQuestion.categoryTag}</Text>
             <Text className="block text-xs text-gray-300">·</Text>
             <Text className="block text-xs text-gray-400">{'⭐'.repeat(currentQuestion.difficulty)}</Text>
           </View>
+          <QuizEngine question={currentQuestion} onNext={handleQuizNext} />
+        </View>
+      )}
 
-          <View className="h-card-scene">
-            {currentQuestion.sceneFull.split('\n').map((line, i) => (
-              <Text key={i} className="block text-base text-gray-900 leading-relaxed">
-                {line === '' ? '\n' : line}
-              </Text>
-            ))}
-          </View>
-
-          {quizPhase === 'scene' && (
-            <View>
-              <View className="h-card-hint">
-                <Text className="block text-xs text-center" style="color:#ccc">👇 选一个你的应对方式</Text>
-              </View>
-              <View className="h-start" onClick={handleStartQuiz}>
-                <Text className="block text-base font-bold text-white text-center">🎯 开始答题</Text>
-              </View>
-            </View>
-          )}
-
-          {quizPhase !== 'scene' && (
-            <View className="h-options">
-              {currentQuestion.options.map((option, idx) => (
-                <View
-                  key={idx}
-                  className={getOptionClass(idx)}
-                  onClick={() => handleSelectOption(idx)}
-                >
-                  <View className={getLetterClass(idx)}>
-                    <Text className="block text-xs font-bold">{option.letter}</Text>
-                  </View>
-                  <Text className="block flex-1 text-sm text-gray-800 leading-relaxed">{option.text}</Text>
+      {/* ==================== SERIES / MICRO-DRAMA SECTION ==================== */}
+      <View className="h-series-section">
+        <View className="h-section-title">
+          <Text className="block text-base font-bold text-gray-900">🎬 追剧专区</Text>
+          <Text className="block text-xs text-gray-400">从社恐小白到社交达人</Text>
+        </View>
+        <ScrollView scrollX enhanced showScrollbar={false} className="h-series-scroll">
+          {seriesList.map((series) => {
+            const unlocked = getSeriesUnlocked(series.id)
+            const total = getSeriesTotal(series.id)
+            const isAllUnlocked = unlocked >= total
+            return (
+              <View key={series.id} className="h-series-card">
+                <View className="h-series-card-header">
+                  <Text className="block text-sm font-semibold text-gray-900">{series.name}</Text>
+                  {isAllUnlocked ? (
+                    <Text className="block text-sm">✅</Text>
+                  ) : unlocked > 0 ? (
+                    <Text className="block text-sm">▶️</Text>
+                  ) : (
+                    <Text className="block text-sm">🔒</Text>
+                  )}
                 </View>
-              ))}
-            </View>
-          )}
+                <Text className="block text-xs text-gray-400 mb-2">{series.desc}</Text>
+                <View className="h-series-progress">
+                  <View className="h-series-track">
+                    <View
+                      className="h-series-fill"
+                      style={{ width: `${(unlocked / total) * 100}%` }}
+                    />
+                  </View>
+                  <Text className="block text-xs text-gray-400 ml-2">{unlocked}/{total}</Text>
+                </View>
+              </View>
+            )
+          })}
+        </ScrollView>
+      </View>
+
+      {/* ==================== BOTTOM STATS ==================== */}
+      <View className="h-bottom-stats">
+        <View className="h-bottom-stats-row">
+          <View className="h-bs-item">
+            <Text className="block text-lg font-bold" style={{ color: '#FF6B6B' }}>{displayStats.practiced}</Text>
+            <Text className="block text-xs text-gray-400">今日练习</Text>
+          </View>
+          <View className="h-bs-divider" />
+          <View className="h-bs-item">
+            <Text className="block text-lg font-bold" style={{ color: '#FF6B6B' }}>{displayStats.streak}天</Text>
+            <Text className="block text-xs text-gray-400">连续打卡</Text>
+          </View>
+          <View className="h-bs-divider" />
+          <View className="h-bs-item">
+            <Text className="block text-lg font-bold" style={{ color: '#34C759' }}>{displayStats.accuracy}%</Text>
+            <Text className="block text-xs text-gray-400">正确率</Text>
+          </View>
         </View>
-      )}
+      </View>
 
-      {/* ===== Result Area ===== */}
-      {quizPhase === 'revealed' && selectedOption !== null && currentQuestion && (
-        <View className="h-result" ref={resultRef}>
-          <View className="h-result-card">
-            <Text className="block text-xs font-semibold mb-2" style="color:#34C759">✅ 最佳回答</Text>
-            <Text className="h-result-answer block">{currentQuestion.bestAnswer}</Text>
-            <View className="h-result-tag">
-              <Text className="block text-xs font-medium" style="color:#2E7D32">💡 {currentQuestion.technique}</Text>
-            </View>
-          </View>
-
-          <View className="h-tips">
-            <Text className="block text-xs font-semibold mb-2" style="color:#F57C00">📝 解析</Text>
-            <Text className="block text-xs text-gray-600 leading-relaxed">{currentQuestion.tips}</Text>
-          </View>
-
-          <View className="h-actions">
-            <View className="h-btn-copy" onClick={handleCopyAnswer}>
-              <Text className="block text-sm font-semibold text-center">📋 复制话术</Text>
-            </View>
-            <View className="h-btn-next" onClick={handleNext}>
-              <Text className="block text-sm font-semibold text-center">下一题 →</Text>
-            </View>
-          </View>
-        </View>
-      )}
-
-      {/* ===== Unlock Banner ===== */}
+      {/* ==================== UNLOCK BANNER ==================== */}
       {!isPaid && (
         <View className="h-unlock" onClick={() => setShowPaymentModal(true)}>
           <View className="flex-1">
             <Text className="block text-sm font-semibold text-white">🔓 解锁全部200+题库</Text>
-            <Text className="block text-xs text-white mt-1" style="opacity:0.85">无限练习 · 分类浏览 · 收藏功能</Text>
+            <Text className="block text-xs text-white mt-1" style={{ opacity: 0.85 }}>无限练习 · 分类浏览 · 收藏功能</Text>
           </View>
           <View className="h-unlock-price">
-            <Text className="font-bold">¥19.9</Text>
+            <Text className="block font-bold">¥19.9</Text>
           </View>
         </View>
       )}
 
       <View className="h-bottom-space" />
 
+      {/* ==================== PAYMENT MODAL ==================== */}
       <PaymentModal open={showPaymentModal} onClose={() => setShowPaymentModal(false)} />
     </View>
   )

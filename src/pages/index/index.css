@@ -1,102 +1,252 @@
 .page-container {
   min-height: 100vh;
-  background-color: #F5F5F7;
+  background: linear-gradient(180deg, #FFF5F5 0%, #F5F5F7 30%);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* ===== Header ===== */
-.h-header {
+/* ==================== HEADER V2 ==================== */
+.h-header-v2 {
   background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
-  padding: 50px 20px 24px;
-  border-radius: 0 0 24px 24px;
-  margin-bottom: 0;
+  padding: 50px 16px 20px;
+  border-radius: 0 0 28px 28px;
+  position: relative;
+  overflow: hidden;
 }
 
-.h-row {
+.h-header-v2::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.h-header-v2::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Top row */
+.h-header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
 }
 
-.h-title {
+.h-header-title {
   font-size: 22px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.h-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
+/* Character avatar chip */
+.h-avatar-chip {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.h-stats {
-  display: flex;
-  gap: 10px;
-}
-
-.h-stat {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 14px;
-  padding: 10px 8px;
-  text-align: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 4px 14px 4px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
 }
 
-.h-stat .stat-num {
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
+.h-avatar-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.h-stat .stat-label {
+/* XP bar section */
+.h-xp-section {
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.h-xp-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.h-xp-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.h-xp-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Rank badge */
+.h-rank-badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.h-rank-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 18px;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  backdrop-filter: blur(10px);
+}
+
+/* Header bottom stats */
+.h-header-stats {
+  display: flex;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.h-header-stat {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  padding: 10px 6px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.15s;
+}
+
+.h-stat-num {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.h-stat-label {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.8);
   margin-top: 2px;
 }
 
-/* ===== Category Tags ===== */
-.h-tags {
-  display: flex;
-  gap: 8px;
-  padding: 16px 16px 8px;
-  overflow-x: auto;
+/* ==================== CATEGORY TAGS V2 ==================== */
+.h-tags-v2 {
+  padding: 14px 0 8px;
+}
+
+.h-tags-scroll {
   white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px;
 }
 
-.h-tags::-webkit-scrollbar {
-  display: none;
-}
-
-.h-tag {
+.h-tag-chip {
+  display: inline-flex;
   flex-shrink: 0;
   padding: 8px 18px;
   border-radius: 22px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   background: #ffffff;
-  border: 1.5px solid #e5e5ea;
-  transition: all 0.2s;
-  color: #666;
+  border: 1.5px solid #e8e8ed;
+  margin-right: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.h-tag-active {
+.h-tag-chip-active {
   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
   border-color: transparent;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.35);
+  transform: translateY(-1px);
 }
 
-/* ===== Quiz Card ===== */
+/* ==================== DAILY CHALLENGE CARD ==================== */
+.h-daily-card {
+  margin: 8px 16px 14px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1), 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1.5px solid rgba(255, 107, 107, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.h-daily-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FF6B6B, #FF8E53, #FFAA5C);
+  border-radius: 20px 20px 0 0;
+}
+
+.h-daily-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 18px 0;
+}
+
+.h-daily-body {
+  padding: 12px 18px 16px;
+}
+
+.h-daily-action {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  padding: 12px 18px;
+  text-align: center;
+  box-shadow: 0 -2px 8px rgba(255, 107, 107, 0.15);
+}
+
+/* ==================== QUIZ SECTION ==================== */
+.h-quiz-section {
+  margin-top: 4px;
+}
+
+/* Badge row above quiz engine */
+.h-card-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px 0;
+  font-size: 11px;
+}
+
+/* ===== Quiz Card (inherited from V1) ===== */
 .h-card {
   margin: 12px 16px;
   background: #ffffff;
@@ -289,7 +439,95 @@
   box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
 }
 
-/* ===== Unlock Banner ===== */
+/* ==================== SERIES / MICRO-DRAMA SECTION ==================== */
+.h-series-section {
+  margin: 16px 0 12px;
+  padding: 0 0 0 16px;
+}
+
+.h-section-title {
+  margin-bottom: 10px;
+  padding-right: 16px;
+}
+
+.h-series-scroll {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+}
+
+.h-series-card {
+  display: inline-flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 180px;
+  margin-right: 10px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.h-series-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.h-series-progress {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.h-series-track {
+  flex: 1;
+  height: 5px;
+  background: #F0F0F0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.h-series-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+/* ==================== BOTTOM STATS ==================== */
+.h-bottom-stats {
+  margin: 8px 16px 12px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+}
+
+.h-bottom-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.h-bs-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.h-bs-divider {
+  width: 1px;
+  height: 30px;
+  background: #e8e8ed;
+}
+
+/* ==================== UNLOCK BANNER ==================== */
 .h-unlock {
   margin: 12px 16px 16px;
   background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 50%, #FFAA5C 100%);
@@ -313,7 +551,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== Bottom Spacing ===== */
+/* ==================== BOTTOM SPACING ==================== */
 .h-bottom-space {
   height: 100px;
 }
