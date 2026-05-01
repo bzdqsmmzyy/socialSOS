@@ -2,6 +2,7 @@ import { View, Text } from "@tarojs/components"
 import Taro from "@tarojs/taro"
 import { useQuizStore, getRank } from "@/store/quiz-store"
 import { useState } from "react"
+import { getHeaderPaddingTop } from "@/utils/safe-area"
 import "./index.css"
 
 export default function Profile() {
@@ -42,7 +43,7 @@ export default function Profile() {
   return (
     <View className="p-page">
       {/* ===== Header ===== */}
-      <View className="p-header">
+      <View className="p-header" style={{ paddingTop: `${getHeaderPaddingTop(24)}px` }}>
         {/* Character display */}
         <View className="p-char-circle" onClick={() => setShowCharSwitcher(!showCharSwitcher)}>
           <Text className="block text-3xl">{currentChar.emoji}</Text>

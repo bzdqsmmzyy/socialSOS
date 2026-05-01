@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useQuizStore, CHARACTERS } from '@/store/quiz-store'
+import { getHeaderPaddingTop } from '@/utils/safe-area'
 import './index.css'
 
 export default function CharacterSelection() {
@@ -28,7 +29,7 @@ export default function CharacterSelection() {
       </View>
 
       {/* ===== Header ===== */}
-      <View className="c-header relative z-10">
+      <View className="c-header relative z-10" style={{ paddingTop: `${getHeaderPaddingTop(24)}px` }}>
         <Text className="c-eyebrow block">FIRST STEP</Text>
         <Text className="c-title block">选择你的角色</Text>
         <Text className="c-subtitle block">

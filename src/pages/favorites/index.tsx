@@ -1,5 +1,6 @@
 import { View, Text } from '@tarojs/components'
 import { useQuizStore } from '@/store/quiz-store'
+import { getHeaderPaddingTop } from '@/utils/safe-area'
 import './index.css'
 
 export default function Favorites() {
@@ -15,7 +16,7 @@ export default function Favorites() {
     return (
       <View className="fav-page">
         {/* Header */}
-        <View className="fav-header">
+        <View className="fav-header" style={{ paddingTop: `${getHeaderPaddingTop(20)}px` }}>
           <Text className="block text-lg font-bold text-white">我的收藏</Text>
           <Text className="block text-xs text-white mt-2" style={{ opacity: 0.8 }}>还没有收藏哦～</Text>
         </View>
@@ -31,7 +32,7 @@ export default function Favorites() {
   return (
     <View className="fav-page">
       {/* Header */}
-      <View className="fav-header">
+      <View className="fav-header" style={{ paddingTop: `${getHeaderPaddingTop(20)}px` }}>
         <Text className="block text-lg font-bold text-white">我的收藏</Text>
         <View className="fav-header-badge">
           <Text className="block text-xs font-bold text-white">已收藏 {favQuestions.length} 题</Text>

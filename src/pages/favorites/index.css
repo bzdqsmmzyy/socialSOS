@@ -7,7 +7,7 @@
 /* Header */
 .fav-header {
   background: linear-gradient(135deg, #E11D48 0%, #F43F5E 100%);
-  padding: calc(env(safe-area-inset-top, 20px) + 20px) 20px 24px;
+  padding: 20px 20px 24px;
   text-align: center;
   border-radius: 0 0 24px 24px;
 }

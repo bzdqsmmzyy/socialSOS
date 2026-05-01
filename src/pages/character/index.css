@@ -15,7 +15,7 @@
 /* ===== Header ===== */
 .c-header {
   width: 100%;
-  padding: calc(env(safe-area-inset-top, 20px) + 24px) 0 8px;
+  padding: 24px 0 8px;
   text-align: center;
 }
 

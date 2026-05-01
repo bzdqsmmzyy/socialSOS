@@ -3,6 +3,7 @@ import Taro from "@tarojs/taro"
 import { useQuizStore, CATEGORIES, CHARACTERS, getRank } from "@/store/quiz-store"
 import PaymentModal from "@/components/payment-modal"
 import QuizEngine from "@/components/quiz-engine"
+import { getHeaderPaddingTop } from "@/utils/safe-area"
 import "./index.css"
 
 export default function Index() {
@@ -69,7 +70,7 @@ export default function Index() {
   return (
     <View className="page-container">
       {/* ==================== HEADER ==================== */}
-      <View className="h-header-v2">
+      <View className="h-header-v2" style={{ paddingTop: `${getHeaderPaddingTop(24)}px` }}>
         {/* Top row: Title + Character Avatar */}
         <View className="h-header-top">
           <Text className="h-header-title block">社交急救包</Text>

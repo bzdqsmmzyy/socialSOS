@@ -1,6 +1,7 @@
 import { View, Text } from '@tarojs/components'
 import { useQuizStore } from '@/store/quiz-store'
 import { useState } from 'react'
+import { getHeaderPaddingTop } from '@/utils/safe-area'
 import './index.css'
 
 export default function Cheatsheets() {
@@ -22,7 +23,7 @@ export default function Cheatsheets() {
   if (sheets.length === 0) {
     return (
       <View className="cs-page">
-        <View className="cs-header">
+        <View className="cs-header" style={{ paddingTop: `${getHeaderPaddingTop(20)}px` }}>
           <Text className="block text-lg font-bold text-white">小抄集</Text>
           <Text className="block text-xs text-white mt-2" style={{ opacity: 0.8 }}>
             还没有收集到小抄～

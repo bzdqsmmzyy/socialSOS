@@ -161,14 +161,14 @@ image {
   background: linear-gradient(135deg, #E11D48, #F43F5E);
   color: #fff;
   border-radius: 26px;
-  padding: 14px;
-  font-size: 15px;
+  padding: 17px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .pay-close {
   text-align: center;
-  padding: 14px;
-  font-size: 13px;
+  padding: 16px;
+  font-size: 14px;
   color: #8e8e93;
 }

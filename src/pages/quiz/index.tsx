@@ -2,6 +2,7 @@ import { View, Text } from "@tarojs/components"
 import Taro from "@tarojs/taro"
 import { useQuizStore, SOCIAL_QUIZ_QUESTIONS } from "@/store/quiz-store"
 import { useState } from "react"
+import { getHeaderPaddingTop } from "@/utils/safe-area"
 import "./index.css"
 
 type QuizPhase = "start" | "question" | "result"
@@ -122,7 +123,7 @@ export default function Quiz() {
   if (phase === "start") {
     return (
       <View className="sq-page">
-        <View className="sq-start-container">
+        <View className="sq-start-container" style={{ paddingTop: `${getHeaderPaddingTop(24)}px` }}>
           <View className="sq-start-icon-wrap">
             <Text className="block sq-start-icon">🫣</Text>
           </View>
@@ -154,7 +155,7 @@ export default function Quiz() {
   if (phase === "result" && result) {
     return (
       <View className="sq-page">
-        <View className="sq-result-container">
+        <View className="sq-result-container" style={{ paddingTop: `${getHeaderPaddingTop(24)}px` }}>
           <View className="sq-result-badge">
             <Text className="block sq-result-emoji">🎉</Text>
           </View>
